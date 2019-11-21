@@ -24,6 +24,8 @@ int main()
 	{
 	case 1: 
 		Day_01(InputFile);
+	case 2:
+		Day_02(InputFile);
 	}
 
 	return 0;

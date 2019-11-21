@@ -4,17 +4,14 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include "DayHeaders.h"
 
 
 using namespace std;
 
 
-int main()
+void Day_02(ifstream& InputFile)
 {
-	std::string InputFileName;
-	cout << "Input file name? \n";
-	cin >> InputFileName;
-	ifstream InputFile(InputFileName);
 
     // read input line per line
 
@@ -44,5 +41,4 @@ int main()
 
     cout << "The elves will need a total of " << TotalArea << " square feet of wrapping paper... \n";
     cout << "..and a total of " << TotalBowLength << " feet of bow! \n";
-	return 0;
 }

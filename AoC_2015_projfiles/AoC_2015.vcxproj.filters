@@ -21,9 +21,12 @@
     <ClCompile Include="AoC2015.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\02nd_Day.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\01st_Day.h">
+    <ClInclude Include="..\DayHeaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
