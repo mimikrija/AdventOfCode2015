@@ -17,7 +17,8 @@ void Day_02(ifstream& InputFile)
 
     vector<string> ListOfInputs{ istream_iterator<string>{InputFile},{} };
     
-    int TotalArea,TotalBowLength = 0;
+	int TotalArea = 0;
+	int TotalBowLength = 0;
     // split at 'x' into integers length, width and height
     for ( auto OneInput : ListOfInputs)
     {
@@ -27,7 +28,7 @@ void Day_02(ifstream& InputFile)
         int h = stoi(OneInput.substr(posxl+1));
         int w = stoi(OneInput.substr(posxf+1,posxl));
         
-        vector Sides = {l,h,w};
+        vector<int> Sides = {l,h,w};
         sort(Sides.begin(),Sides.end());
         
         TotalArea += 2*l*w + 2*w*h + 2*h*l + Sides[0]*Sides[1];
