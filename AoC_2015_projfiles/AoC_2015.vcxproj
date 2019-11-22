@@ -114,6 +114,7 @@
   <ItemGroup>
     <ClCompile Include="..\01st_Day.cpp" />
     <ClCompile Include="..\02nd_Day.cpp" />
+    <ClCompile Include="..\03rd_Day.cpp" />
     <ClCompile Include="AoC2015.cpp" />
   </ItemGroup>
   <ItemGroup>
