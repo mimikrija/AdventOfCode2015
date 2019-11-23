@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <set>
 #include <iterator>
 #include <algorithm>
 #include "DayHeaders.h"
@@ -49,4 +50,18 @@ void Day_03(ifstream& InputFile)
 		VisitedHouses.push_back(CurrentCoordinate);
 		
 	}
+
+	// find the lucky houses
+	sort(VisitedHouses.begin(), VisitedHouses.end());
+	set<pair<int, int>> UniqueCoordinates(VisitedHouses.begin(),VisitedHouses.end());
+	vector<pair<int, int>> LuckyHouses(UniqueCoordinates.size());
+	auto it = copy_if(UniqueCoordinates.begin(), UniqueCoordinates.end(), LuckyHouses.begin(), [VisitedHouses](auto House) {return count(VisitedHouses.begin(), VisitedHouses.end(), House) > 1; });
+	LuckyHouses.resize(distance(LuckyHouses.begin(), it));
+
+	cout << "This Christmas there were " << UniqueCoordinates.size() << " houses which got at least one gift! \n";
+
+	cout << "This Christmas there were " << LuckyHouses.size() << " houses which got at least two gifts! \n";
+	
+	
+	
 }
