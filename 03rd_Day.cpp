@@ -77,17 +77,17 @@ void Day_03(ifstream& InputFile)
 		
 	}
 
-	// find the lucky houses
+	
 	sort(VisitedHouses.begin(), VisitedHouses.end());
 	set<pair<int, int>> UniqueCoordinates(VisitedHouses.begin(),VisitedHouses.end());
-	vector<pair<int, int>> LuckyHouses(UniqueCoordinates.size());
-	auto it = copy_if(UniqueCoordinates.begin(), UniqueCoordinates.end(), LuckyHouses.begin(), [VisitedHouses](auto House) {return count(VisitedHouses.begin(), VisitedHouses.end(), House) > 1; });
-	LuckyHouses.resize(distance(LuckyHouses.begin(), it));
-
 	cout << "This Christmas there were " << UniqueCoordinates.size() << " houses which got at least one gift! \n";
 
-	cout << "This Christmas there were " << LuckyHouses.size() << " houses which got at least two gifts! \n";
-	
+	//vector<pair<int, int>> LuckyHouses(UniqueCoordinates.size());
+	//auto it = copy_if(UniqueCoordinates.begin(), UniqueCoordinates.end(), LuckyHouses.begin(), [VisitedHouses](auto House) {return count(VisitedHouses.begin(), VisitedHouses.end(), House) > 1; });
+	//LuckyHouses.resize(distance(LuckyHouses.begin(), it));
+
+	// This is me missunderstanding the first part of the puzzle
+	//cout << "This Christmas there were " << LuckyHouses.size() << " houses which got at least two gifts! \n";
 	
 	// second part: Santa and Robo Santa deliver the gifts together
 	vector <char> SantaInstructions, RoboInstructions;
