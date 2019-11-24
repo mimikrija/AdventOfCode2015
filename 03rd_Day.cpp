@@ -89,5 +89,34 @@ void Day_03(ifstream& InputFile)
 	cout << "This Christmas there were " << LuckyHouses.size() << " houses which got at least two gifts! \n";
 	
 	
+	// second part: Santa and Robo Santa deliver the gifts together
+	vector <char> SantaInstructions, RoboInstructions;
+
+	auto it = WackyElfInstructions.begin();
+	while (it != WackyElfInstructions.end())
+	{
+		int check = it - WackyElfInstructions.begin();
+		
+		if (check % 2 == 1)
+		{
+			SantaInstructions.push_back(*it); // odd directions go to Santa;
+		}
+		else
+		{
+			RoboInstructions.push_back(*it); // even directions go to Robo;
+		}
+		it++;
+	}
+	vector <pair<int, int>> SantaHouses, RoboHouses;
+	SantaHouses = VisitedHousesVector(SantaInstructions);
+	RoboHouses = VisitedHousesVector(RoboInstructions);
+
+	auto JointHouses = SantaHouses;
+	JointHouses.insert(JointHouses.end(), RoboHouses.begin(), RoboHouses.end());
+
+	set<pair<int, int>> UniqueJointCoordinates(JointHouses.begin(),JointHouses.end());
+
+	cout << "When Santa and Robosanta work together, " << UniqueJointCoordinates.size() << " houses get at least one gift!\n";
+
 	
 }
