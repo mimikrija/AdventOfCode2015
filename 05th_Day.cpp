@@ -11,12 +11,17 @@ using namespace std;
 bool IsNice(string SantasString)
 {
 	// a nice string has to contain at least three vowels
-
-	for (auto Vowel : "aeiou")
+	string Vowels = "aeiou";
+	int VowelCount = 0;
+	for (auto Letter : SantasString)
 	{
-		if (count_if(SantasString.begin(), SantasString.end(), [Vowel](auto Letter) {return Letter == Vowel; }) < 3) return false;
+		if (Vowels.find(Letter) != string::npos)
+		{
+			VowelCount ++;
+			if ( VowelCount >= 2 ) break;
+		}
 	}
-	
+	if ( VowelCount < 2 ) return false;
 
 	// a nice string contains at least two consecutive letters
 	if (adjacent_find(SantasString.begin(), SantasString.end()) == SantasString.end()) return false;
