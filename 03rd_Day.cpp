@@ -9,6 +9,32 @@
 
 using namespace std;
 
+vector<pair<int, int>> VisitedHousesVector(vector<char>Instructions)
+{
+	vector<pair<int, int>> temp(1, make_pair(0, 0)); // initialize;
+	pair<int, int> CurrentCoordinate;
+	for (auto OneDirection : Instructions)
+	{
+		switch (OneDirection)
+		{
+		case ('<'):
+			CurrentCoordinate.first--;
+			break;
+		case ('>'):
+			CurrentCoordinate.first++;
+			break;
+		case ('v'):
+			CurrentCoordinate.second--;
+			break;
+		case ('^'):
+			CurrentCoordinate.second++;
+			break;
+		}
+		temp.push_back(CurrentCoordinate);
+
+	}
+	return temp;
+}
 
 void Day_03(ifstream& InputFile)
 {
