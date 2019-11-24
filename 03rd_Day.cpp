@@ -11,6 +11,11 @@ using namespace std;
 
 vector<pair<int, int>> VisitedHousesVector(vector<char>Instructions)
 {
+	// convert instructions to coordinates of visited houses
+	// v is south
+	// ^ is north
+	// > is east
+	// < is west
 	vector<pair<int, int>> temp(1, make_pair(0, 0)); // initialize;
 	pair<int, int> CurrentCoordinate;
 	for (auto OneDirection : Instructions)
@@ -39,12 +44,6 @@ vector<pair<int, int>> VisitedHousesVector(vector<char>Instructions)
 void Day_03(ifstream& InputFile)
 {
 
-	// read Elf's wacky instructions to santa,
-	// v is south
-	// ^ is north
-	// > is east
-	// < is west
-
 	char OneDirection;
 	vector<char> WackyElfInstructions;
 
@@ -53,42 +52,20 @@ void Day_03(ifstream& InputFile)
 		WackyElfInstructions.push_back(OneDirection);
 	}
 
-	// create a map of visits
-	vector<pair<int, int>> VisitedHouses (1, make_pair(0,0)); // initialize to Santa's initial position
-	pair<int, int> CurrentCoordinate;
-	for (auto OneDirection : WackyElfInstructions)
-	{
-		switch (OneDirection)
-		{
-			case ('<'):
-				CurrentCoordinate.first--;
-				break;
-			case ('>'):
-				CurrentCoordinate.first++;
-				break;
-			case ('v'):
-				CurrentCoordinate.second--;
-				break;
-			case ('^'):
-				CurrentCoordinate.second++;
-				break;
-		}
-		VisitedHouses.push_back(CurrentCoordinate);
-		
-	}
 
-	
-	sort(VisitedHouses.begin(), VisitedHouses.end());
+	vector<pair<int, int>> VisitedHouses = VisitedHousesVector(WackyElfInstructions);
 	set<pair<int, int>> UniqueCoordinates(VisitedHouses.begin(),VisitedHouses.end());
 	cout << "This Christmas there were " << UniqueCoordinates.size() << " houses which got at least one gift! \n";
 
+
+	// This is me missunderstanding the first part of the puzzle
+	// ****
 	//vector<pair<int, int>> LuckyHouses(UniqueCoordinates.size());
 	//auto it = copy_if(UniqueCoordinates.begin(), UniqueCoordinates.end(), LuckyHouses.begin(), [VisitedHouses](auto House) {return count(VisitedHouses.begin(), VisitedHouses.end(), House) > 1; });
 	//LuckyHouses.resize(distance(LuckyHouses.begin(), it));
-
-	// This is me missunderstanding the first part of the puzzle
 	//cout << "This Christmas there were " << LuckyHouses.size() << " houses which got at least two gifts! \n";
-	
+	// ****
+
 	// second part: Santa and Robo Santa deliver the gifts together
 	vector <char> SantaInstructions, RoboInstructions;
 
