@@ -39,7 +39,7 @@ void Day_05(ifstream& InputFile)
 
 	vector<string> ListOfInputs{ istream_iterator<string>{InputFile},{} };
 
-	cout << "A number of nice strings is: " << count_if(ListOfInputs.begin(), ListOfInputs.end(), [](auto AString) {return IsNice(AString); }) << "!\n";
+	cout << "The number of nice strings is: " << count_if(ListOfInputs.begin(), ListOfInputs.end(), [](auto AString) {return IsNice(AString); }) << "!\n";
 
 
 }
