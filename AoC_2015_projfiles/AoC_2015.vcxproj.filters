@@ -27,6 +27,9 @@
     <ClCompile Include="..\03rd_Day.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\05th_Day.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DayHeaders.h">

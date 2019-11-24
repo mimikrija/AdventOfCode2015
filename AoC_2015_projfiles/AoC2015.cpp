@@ -30,6 +30,8 @@ int main()
 		Day_02(InputFile);
 	case 3:
 		Day_03(InputFile);
+	case 5:
+		Day_05(InputFile);
 	}
 
 	return 0;

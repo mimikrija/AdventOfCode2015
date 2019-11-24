@@ -23,7 +23,7 @@
     <ProjectGuid>{78816F3A-CC72-4252-A1F7-89EB446C8BB4}</ProjectGuid>
     <RootNamespace>My01st_Day_of_Christmas</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
-    <ProjectName>Advent of code 2015</ProjectName>
+    <ProjectName>AoC_2015</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -115,6 +115,7 @@
     <ClCompile Include="..\01st_Day.cpp" />
     <ClCompile Include="..\02nd_Day.cpp" />
     <ClCompile Include="..\03rd_Day.cpp" />
+    <ClCompile Include="..\05th_Day.cpp" />
     <ClCompile Include="AoC2015.cpp" />
   </ItemGroup>
   <ItemGroup>
