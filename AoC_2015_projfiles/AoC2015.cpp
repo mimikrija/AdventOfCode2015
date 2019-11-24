@@ -10,15 +10,17 @@ using namespace std;
 
 int main()
 {
-	std::string InputFileName;
-	cout << "Input file name? \n";
-	cin >> InputFileName;
-	ifstream InputFile(InputFileName);
-
 	// we can read that from the input file name
 	cout << "Which day of Christmas? \n";
 	int day;
 	cin >> day;
+	string leadingzero;
+	day < 10 ? leadingzero = "0" : leadingzero = "";
+	std::string InputFileName = "../inputs/input" + leadingzero + to_string(day);
+	ifstream InputFile(InputFileName);
+
+
+
 	
 	switch(day)
 	{
