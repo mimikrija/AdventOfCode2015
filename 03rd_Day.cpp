@@ -28,7 +28,7 @@ void Day_03(ifstream& InputFile)
 	}
 
 	// create a map of visits
-	vector<pair<int, int>> VisitedHouses {(0,0)}; // initialize to Santa's initial position
+	vector<pair<int, int>> VisitedHouses (1, make_pair(0,0)); // initialize to Santa's initial position
 	pair<int, int> CurrentCoordinate;
 	for (auto OneDirection : WackyElfInstructions)
 	{
