@@ -22,6 +22,13 @@ bool IsNice(string SantasString)
 	// a nice string contains at least two consecutive letters
 	if (adjacent_find(SantasString.begin(), SantasString.end()) == SantasString.end()) return false;
 
+	// a nice string does not contain the strings ab, cd, pq, or xy, even if they are part of one of the other requirements.
+	for (string NaughtySub : {"ab", "cd", "pq", "xy"})
+	{
+		if (SantasString.find(NaughtySub) != string::npos) return false;
+	}
+
+	return true;
 }
 
 
