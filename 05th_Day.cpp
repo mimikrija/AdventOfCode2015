@@ -19,6 +19,9 @@ bool IsNice(string SantasString)
 	}
 	if (CountVowels < 3) return false;
 
+	// a nice string contains at least two consecutive letters
+	if (adjacent_find(SantasString.begin(), SantasString.end()) == SantasString.end()) return false;
+
 }
 
 
