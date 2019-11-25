@@ -34,22 +34,28 @@ bool IsNiceForReal(string SantasString)
 	//like xyxy(xy) or aabcdefgaa(aa), but not like aaa(aa, but it overlaps).
 
 	int pos = 0;
+	bool FirstCriterion(false);
 	while ( pos < SantasString.length()-3)
 	{
 		string check = SantasString.substr(pos, 2);
 		string rest = SantasString.substr(pos+2);
-		if (rest.find(check) != string::npos) return true;
+		if (rest.find(check) != string::npos)
+		{
+			FirstCriterion = true;
+			break;
+		}
 		pos ++;
 	}
+	if (!FirstCriterion) return false;
 
 	//	It contains at least one letter which repeats with exactly one letter between them, like xyx, abcdefeghi(efe), or even aaa.
-
+	bool SecondCriterion(false);
 
 	//qjhvhtzxzqqjkmpb is nice because is has a pair that appears twice(qj) and a letter that repeats with exactly one letter between them(zxz).
 	//	xxyxx is nice because it has a pair that appears twice and a letter that repeats with one between, even though the letters used by each rule overlap.
 	//	uurcxstgmygtbstg is naughty because it has a pair(tg) but no repeat with a single letter between them.
 	//	ieodomkazucvgmuy is naughty because it has a repeating letter with one between(odo), but no pair that appears twice.
-	return false;
+	return FirstCriterion && SecondCriterion;
 }
 
 
