@@ -12,7 +12,8 @@ bool IsNice(string SantasString)
 {
 	// a nice string has to contain at least three vowels
 	string Vowels = "aeiou";
-	if (count_if(SantasString.begin(), SantasString.end(), [Vowels](auto Letter) {return find(Vowels.begin(), Vowels.end(), Letter) != Vowels.end(); }) < 3) return false;
+	if (count_if(SantasString.begin(), SantasString.end(),
+		[Vowels](auto Letter) {return find(Vowels.begin(), Vowels.end(), Letter) != Vowels.end(); }) < 3) return false;
 
 	// a nice string contains at least two consecutive letters
 	if (adjacent_find(SantasString.begin(), SantasString.end()) == SantasString.end()) return false;
@@ -63,10 +64,6 @@ bool IsNiceForReal(string SantasString)
 		pos++;
 	}
 
-	//qjhvhtzxzqqjkmpb is nice because is has a pair that appears twice(qj) and a letter that repeats with exactly one letter between them(zxz).
-	//	xxyxx is nice because it has a pair that appears twice and a letter that repeats with one between, even though the letters used by each rule overlap.
-	//	uurcxstgmygtbstg is naughty because it has a pair(tg) but no repeat with a single letter between them.
-	//	ieodomkazucvgmuy is naughty because it has a repeating letter with one between(odo), but no pair that appears twice.
 	return FirstCriterion && SecondCriterion;
 }
 
@@ -78,7 +75,8 @@ void Day_05(ifstream& InputFile)
 
 	vector<string> ListOfInputs{ istream_iterator<string>{InputFile},{} };
 	// part 1
-	cout << "The number of nice strings is: " << count_if(ListOfInputs.begin(), ListOfInputs.end(), [](auto AString) {return IsNice(AString); }) << "!\n";
+	cout << "The number of nice strings is: " << count_if(ListOfInputs.begin(), ListOfInputs.end(),
+		[](auto AString) {return IsNice(AString); }) << "!\n";
 
 	// part 2
 	cout << "The number of *REALLY* nice strings is: " << count_if(ListOfInputs.begin(), ListOfInputs.end(),
