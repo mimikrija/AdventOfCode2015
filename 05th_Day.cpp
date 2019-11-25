@@ -50,6 +50,18 @@ bool IsNiceForReal(string SantasString)
 
 	//	It contains at least one letter which repeats with exactly one letter between them, like xyx, abcdefeghi(efe), or even aaa.
 	bool SecondCriterion(false);
+	pos = 0;
+	while (pos < SantasString.length() - 2)
+	{
+		char left = SantasString.at(pos);
+		char right = SantasString.at(pos+2);
+		if (left == right)
+		{
+			SecondCriterion = true;
+			break;
+		}
+		pos++;
+	}
 
 	//qjhvhtzxzqqjkmpb is nice because is has a pair that appears twice(qj) and a letter that repeats with exactly one letter between them(zxz).
 	//	xxyxx is nice because it has a pair that appears twice and a letter that repeats with one between, even though the letters used by each rule overlap.
