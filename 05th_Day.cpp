@@ -26,6 +26,11 @@ bool IsNice(string SantasString)
 	return true;
 }
 
+bool IsNiceForReal(string SantasString)
+{
+	return true;
+}
+
 
 void Day_05(ifstream& InputFile)
 {
@@ -36,7 +41,10 @@ void Day_05(ifstream& InputFile)
 	// part 1
 	cout << "The number of nice strings is: " << count_if(ListOfInputs.begin(), ListOfInputs.end(), [](auto AString) {return IsNice(AString); }) << "!\n";
 
-// PART 2
+	// part 2
+	cout << "The number of *REALLY* nice strings is: " << count_if(ListOfInputs.begin(), ListOfInputs.end(),
+		[](auto AString) {return IsNiceForReal(AString); }) << "!\n";
+
 
 	//-- - Part Two-- -
 	//	Realizing the error of his ways, Santa has switched to a better model of determining whether a string is naughty or nice.None of the old rules apply, as they are all clearly ridiculous.
