@@ -12,16 +12,7 @@ bool IsNice(string SantasString)
 {
 	// a nice string has to contain at least three vowels
 	string Vowels = "aeiou";
-	int VowelCount = 0;
-	for (auto Letter : SantasString)
-	{
-		if (Vowels.find(Letter) != string::npos)
-		{
-			VowelCount ++;
-			if ( VowelCount >= 2 ) break;
-		}
-	}
-	if ( VowelCount < 2 ) return false;
+	if (count_if(SantasString.begin(), SantasString.end(), [Vowels](auto Letter) {return find(Vowels.begin(), Vowels.end(), Letter) != Vowels.end(); }) < 3) return false;
 
 	// a nice string contains at least two consecutive letters
 	if (adjacent_find(SantasString.begin(), SantasString.end()) == SantasString.end()) return false;
