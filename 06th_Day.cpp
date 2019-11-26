@@ -51,7 +51,11 @@ void Day_06(ifstream& InputFile)
 			// Do turn on action
 		}
 
-
+		set<pair<int,int>> test = GeneratePairs(1, 3, 4, 5);
+		test.erase(make_pair(6, 3));
+		auto begin = test.find (make_pair(1, 5));
+		auto end = test.find (make_pair(3, 5));
+		test.erase(begin,end);
 
 		//ListOfInputs.push_back(line);
 	}
