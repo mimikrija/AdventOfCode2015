@@ -63,7 +63,9 @@ void Day_06(ifstream& InputFile)
 
 		set<pair<int,int>> CurrentCoordinates = GeneratePairs(firsth,firstv,lasth,lastv);
 		if (Action == "turn on") LightsOn.insert(CurrentCoordinates.begin(), CurrentCoordinates.end());
-		if (Action == "turn off") LightsOn.erase(CurrentCoordinates.begin(), CurrentCoordinates.end());
+		if (Action == "turn off") {}; // LightsOn.erase(CurrentCoordinates.begin(), CurrentCoordinates.end());
+		if (Action == "toggle") {};
+	//	sort(LightsOn.begin(),LightsOn.end());
 
 	}
 
