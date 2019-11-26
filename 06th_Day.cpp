@@ -25,13 +25,34 @@ vector<pair<int, int>> GeneratePairs(int x, int y, int X, int Y)
 void Day_06(ifstream& InputFile)
 {
 
-	// read input line per line
+	// read input line per line and define actions
 	vector<string> ListOfInputs;
 	
-	string str;
-	while (getline(InputFile, str))
+	string line;
+	while (getline(InputFile, line))
 	{
-		ListOfInputs.push_back(str);
+		// use rfind to search for the last occurence of "," or " through"
+		// to get coordinates
+
+		// then define what action to do with those coordinates
+		if ( line.find("toggle") != string::npos)
+		{
+			// Do toggle action
+		}
+
+		if (line.find("off") != string::npos)
+		{
+			// Do turn off action
+		}
+
+		if (line.find("on") != string::npos)
+		{
+			// Do turn on action
+		}
+
+
+
+		//ListOfInputs.push_back(line);
 	}
 
 
