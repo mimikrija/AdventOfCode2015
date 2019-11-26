@@ -4,18 +4,19 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include <set>
 #include "DayHeaders.h"
 
 using namespace std;
 
-vector<pair<int, int>> GeneratePairs(int x, int y, int X, int Y)
+set<pair<int, int>> GeneratePairs(int x, int y, int X, int Y)
 {
-	vector<pair<int, int>> temp;
+	set<pair<int, int>> temp;
 	for (int horizontal = x; horizontal <= X; horizontal++)
 	{
 		for (int vertical = y; vertical <= Y; vertical++)
 		{
-			temp.push_back(make_pair(horizontal, vertical));
+			temp.insert(make_pair(horizontal, vertical));
 		}
 	}
 	return temp;
