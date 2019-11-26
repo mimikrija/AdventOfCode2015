@@ -20,46 +20,54 @@ set<pair<int, int>> GeneratePairs(int x, int y, int X, int Y)
 		}
 	}
 	return temp;
+}
+
+void TurnOnTheLights(set<pair<int, int>> Coordinates)
+{
 
 }
 
 void Day_06(ifstream& InputFile)
 {
-
-	// read input line per line and define actions
-	vector<string> ListOfInputs;
-	
+	set<pair<int, int>> LightsOn;
+	// read input line per line, parse coordinates and define actions
 	string line;
+
 	while (getline(InputFile, line))
 	{
-		// use rfind to search for the last occurence of "," or " through"
-		// to get coordinates
-
-		// then define what action to do with those coordinates
-		if ( line.find("toggle") != string::npos)
+		string Action;
+		// define what action to do with the groups of coordinates
+		for (string check : { "toggle","turn on","turn off" })
 		{
-			// Do toggle action
+			if (line.find(check) != string::npos)
+			{
+				Action = check;
+				line.erase(0, check.size() + 1);
+				break;
+			}
 		}
+		// parse numbers - there's probably a smarter way of doing this
+		auto delimiter = line.rfind(",");
+		int lastv = stoi(line.substr(delimiter + 1));
+		line.erase(delimiter);
+		delimiter = line.rfind("h");
+		int lasth = stoi(line.substr(delimiter + 1));
+		line.erase(delimiter);
+		delimiter = line.find(",");
+		int firsth = stoi(line.substr(0,delimiter));
+		line.erase(0, delimiter + 1);
+		int firstv = stoi(line);
+		// note to myself: even if there are other characters present in the string, stoi converts only the numbers!
 
-		if (line.find("off") != string::npos)
-		{
-			// Do turn off action
-		}
+		// generate set of Coordinates pased on these numbers
 
-		if (line.find("on") != string::npos)
-		{
-			// Do turn on action
-		}
+		set<pair<int,int>> CurrentCoordinates = GeneratePairs(firsth,firstv,lasth,lastv);
+		if (Action == "turn on") LightsOn.insert(CurrentCoordinates.begin(), CurrentCoordinates.end());
+		if (Action == "turn off") LightsOn.erase(CurrentCoordinates.begin(), CurrentCoordinates.end());
 
-		set<pair<int,int>> test = GeneratePairs(1, 3, 4, 5);
-		test.erase(make_pair(6, 3));
-		auto begin = test.find (make_pair(1, 5));
-		auto end = test.find (make_pair(3, 5));
-		test.erase(begin,end);
-
-		//ListOfInputs.push_back(line);
 	}
 
+	cout << "There is a total of " << LightsOn.size() << " lights turned on!";
 
 }
 
