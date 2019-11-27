@@ -21,19 +21,23 @@ int main()
 
 
 
-	
+
 	switch(day)
 	{
-	case 1: 
+	case 1:
 		Day_01(InputFile);
 	case 2:
 		Day_02(InputFile);
 	case 3:
 		Day_03(InputFile);
+
+
 	case 5:
 		Day_05(InputFile);
 	case 6:
 		Day_06(InputFile);
+	case 7:
+		Day_07(InputFile);
 	}
 
 	return 0;
