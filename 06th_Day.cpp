@@ -5,6 +5,7 @@
 #include <iterator>
 #include <algorithm>
 #include <set>
+#include <numeric>
 #include "DayHeaders.h"
 
 using namespace std;
@@ -18,6 +19,9 @@ void Day_06(ifstream& InputFile)
 	vector<int> Row(1000, 0);
 	fill(Lights.begin(), Lights.end(), Row);
 
+	// initialize the light for part 2 grid
+	vector<vector<int>> LightsB(1000);
+	fill(LightsB.begin(), LightsB.end(), Row);
 	// read input line per line, parse coordinates and define actions
 	string line;
 
@@ -61,6 +65,20 @@ void Day_06(ifstream& InputFile)
 			});
 		});
 		
+		// Part 2: brightness stuff
+		for_each(LightsB.begin() + h, LightsB.begin() + H+1,
+			[v,V,Action](vector<int> &Row)
+		{
+			for_each(Row.begin() + v, Row.begin() + V+1, [Action](int &Light)
+			{
+				if ( Action == "turn on") Light += 1;
+				if ( Action == "turn off") Light > 0 ? Light -- : Light = 0;
+				if ( Action == "toggle")
+				{
+					Light += 2;
+				}
+			});
+		});
 
 	}
 
@@ -72,7 +90,14 @@ void Day_06(ifstream& InputFile)
 
 	cout << "There is a total of " << TotalLights << " lights turned on!";
 
+	int TotalBrightness = 0;
+	for (auto Row : LightsB)
+	{
+		TotalBrightness += accumulate(Row.begin(), Row.end(),0);
+	}
 
+	cout << "There is a total of " << TotalLights << " lights turned on!\n";
+	cout << "Actually, total brightness is " << TotalBrightness << "!";
 
 
 }
