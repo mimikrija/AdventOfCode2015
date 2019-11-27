@@ -12,14 +12,14 @@ using namespace std;
 
 void Day_06(ifstream& InputFile)
 {
-	vector<pair<int, int>> LightsOn;
-	// read input line per line, parse coordinates and define actions
-	string line;
 
 	// initialize light grid
-	vector<vector<int>> Lights(999);
-	vector<int> Row(999, 0);
+	vector<vector<int>> Lights(1000);
+	vector<int> Row(1000, 0);
 	fill(Lights.begin(), Lights.end(), Row);
+
+	// read input line per line, parse coordinates and define actions
+	string line;
 
 	while (getline(InputFile, line))
 	{
@@ -46,28 +46,21 @@ void Day_06(ifstream& InputFile)
 		line.erase(0, delimiter + 1);
 		int v = stoi(line);
 		// note to myself: even if there are other characters present in the string, stoi converts only the numbers!
-
-
-
-		//vector<pair<int,int>> CurrentCoordinates = GeneratePairs(firsth,firstv,lasth,lastv);
-		//LightsOn.reserve(LightsOn.size() + CurrentCoordinates.size());
-		if (Action == "turn on")
+		
+		for_each(Lights.begin() + h, Lights.begin() + H+1,
+			[v,V,Action](vector<int> &Row)
 		{
-			for_each(Row.begin() + v, Row.begin() + V, [](){ return 1; });
-			for_each(Lights.begin() + h, Lights.begin() + H, [Row]() {return Row; });
-		}
-
-		if (Action == "turn off")
-		{
-			fill(Row.begin() + v, Row.begin() + V, 0);
-			fill(Lights.begin() + h, Lights.begin() + H, Row);
-		}
-		if (Action == "toggle")
-		{
-			for_each(Row.begin() + v, Row.begin() + V, [](bool light)
-				{ return !light; });
-			fill(Lights.begin() + h, Lights.begin() + H, Row);
-		};
+			for_each(Row.begin() + v, Row.begin() + V+1, [Action](int &Light)
+			{ 
+				if ( Action == "turn on") Light = 1;
+				if ( Action == "turn off") Light = 0;
+				if (Action == "toggle")
+				{
+					Light == 0 ? Light = 1 : Light = 0;
+				}
+			});
+		});
+		
 
 	}
 
