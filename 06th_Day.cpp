@@ -9,29 +9,17 @@
 
 using namespace std;
 
-set<pair<int, int>> GeneratePairs(int x, int y, int X, int Y)
-{
-	set<pair<int, int>> temp;
-	for (int horizontal = x; horizontal <= X; horizontal++)
-	{
-		for (int vertical = y; vertical <= Y; vertical++)
-		{
-			temp.insert(make_pair(horizontal, vertical));
-		}
-	}
-	return temp;
-}
-
-void TurnOnTheLights(set<pair<int, int>> Coordinates)
-{
-
-}
 
 void Day_06(ifstream& InputFile)
 {
-	set<pair<int, int>> LightsOn;
+	vector<pair<int, int>> LightsOn;
 	// read input line per line, parse coordinates and define actions
 	string line;
+
+	// initialize light grid
+	vector<vector<int>> Lights(999);
+	vector<int> Row(999, 0);
+	fill(Lights.begin(), Lights.end(), Row);
 
 	while (getline(InputFile, line))
 	{
@@ -48,28 +36,50 @@ void Day_06(ifstream& InputFile)
 		}
 		// parse numbers - there's probably a smarter way of doing this
 		auto delimiter = line.rfind(",");
-		int lastv = stoi(line.substr(delimiter + 1));
+		int V = stoi(line.substr(delimiter + 1));
 		line.erase(delimiter);
 		delimiter = line.rfind("h");
-		int lasth = stoi(line.substr(delimiter + 1));
+		int H = stoi(line.substr(delimiter + 1));
 		line.erase(delimiter);
 		delimiter = line.find(",");
-		int firsth = stoi(line.substr(0,delimiter));
+		int h = stoi(line.substr(0,delimiter));
 		line.erase(0, delimiter + 1);
-		int firstv = stoi(line);
+		int v = stoi(line);
 		// note to myself: even if there are other characters present in the string, stoi converts only the numbers!
 
-		// generate set of Coordinates pased on these numbers
 
-		set<pair<int,int>> CurrentCoordinates = GeneratePairs(firsth,firstv,lasth,lastv);
-		if (Action == "turn on") LightsOn.insert(CurrentCoordinates.begin(), CurrentCoordinates.end());
-		if (Action == "turn off") {}; // LightsOn.erase(CurrentCoordinates.begin(), CurrentCoordinates.end());
-		if (Action == "toggle") {};
-	//	sort(LightsOn.begin(),LightsOn.end());
+
+		//vector<pair<int,int>> CurrentCoordinates = GeneratePairs(firsth,firstv,lasth,lastv);
+		//LightsOn.reserve(LightsOn.size() + CurrentCoordinates.size());
+		if (Action == "turn on")
+		{
+			for_each(Row.begin() + v, Row.begin() + V, [](){ return 1; });
+			for_each(Lights.begin() + h, Lights.begin() + H, [Row]() {return Row; });
+		}
+
+		if (Action == "turn off")
+		{
+			fill(Row.begin() + v, Row.begin() + V, 0);
+			fill(Lights.begin() + h, Lights.begin() + H, Row);
+		}
+		if (Action == "toggle")
+		{
+			for_each(Row.begin() + v, Row.begin() + V, [](bool light)
+				{ return !light; });
+			fill(Lights.begin() + h, Lights.begin() + H, Row);
+		};
 
 	}
 
-	cout << "There is a total of " << LightsOn.size() << " lights turned on!";
+	int TotalLights = 0;
+	for (auto Row : Lights)
+	{
+		TotalLights += count_if(Row.begin(), Row.end(), [](int light) {return light == 1; });
+	}
+
+	cout << "There is a total of " << TotalLights << " lights turned on!";
+
+
+
 
 }
-
