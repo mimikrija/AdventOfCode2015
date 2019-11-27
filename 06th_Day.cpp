@@ -53,8 +53,8 @@ void Day_06(ifstream& InputFile)
 		//LightsOn.reserve(LightsOn.size() + CurrentCoordinates.size());
 		if (Action == "turn on") 
 		{
-			fill(Row.begin() + v, Row.begin() + V, 1);
-			fill(Lights.begin() + h, Lights.begin() + H, Row);
+			for_each(Row.begin() + v, Row.begin() + V, [](){ return 1; });
+			for_each(Lights.begin() + h, Lights.begin() + H, [Row]() {return Row; });
 		}
 
 		if (Action == "turn off")
