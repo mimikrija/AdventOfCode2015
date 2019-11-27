@@ -13,6 +13,11 @@ using namespace std;
 
 void Day_06(ifstream& InputFile)
 {
+	// note: arrays perform better than vectors in situations
+	// where we need a container of a fixed size (such as this case)
+	// however, the initialization is not the same, I'd need to make
+	// more changes than simply replacing 'vector' with 'array' so
+	// I am leaving this for now.
 
 	// initialize light grid
 	vector<vector<int>> Lights(1000);
