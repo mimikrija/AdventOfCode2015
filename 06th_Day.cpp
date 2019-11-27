@@ -38,7 +38,9 @@ void Day_06(ifstream& InputFile)
 				break;
 			}
 		}
+
 		// parse numbers - there's probably a smarter way of doing this
+		// yup: scanf
 		auto delimiter = line.rfind(",");
 		int V = stoi(line.substr(delimiter + 1));
 		line.erase(delimiter);
@@ -51,6 +53,7 @@ void Day_06(ifstream& InputFile)
 		int v = stoi(line);
 		// note to myself: even if there are other characters present in the string, stoi converts only the numbers!
 		
+		// Part 1: lights on or off
 		for_each(Lights.begin() + h, Lights.begin() + H+1,
 			[v,V,Action](vector<int> &Row)
 		{
@@ -58,7 +61,7 @@ void Day_06(ifstream& InputFile)
 			{ 
 				if ( Action == "turn on") Light = 1;
 				if ( Action == "turn off") Light = 0;
-				if (Action == "toggle")
+				if ( Action == "toggle")
 				{
 					Light == 0 ? Light = 1 : Light = 0;
 				}
@@ -79,16 +82,15 @@ void Day_06(ifstream& InputFile)
 				}
 			});
 		});
-
 	}
 
 	int TotalLights = 0;
 	for (auto Row : Lights)
 	{
-		TotalLights += count_if(Row.begin(), Row.end(), [](int light) {return light == 1; });
+		TotalLights += accumulate(Row.begin(), Row.end(), 0);
 	}
 
-	cout << "There is a total of " << TotalLights << " lights turned on!";
+	// int test = accumulate(Lights.begin(), Lights.end(),0); unfortunatelly this does not work
 
 	int TotalBrightness = 0;
 	for (auto Row : LightsB)
@@ -98,6 +100,5 @@ void Day_06(ifstream& InputFile)
 
 	cout << "There is a total of " << TotalLights << " lights turned on!\n";
 	cout << "Actually, total brightness is " << TotalBrightness << "!";
-
 
 }
