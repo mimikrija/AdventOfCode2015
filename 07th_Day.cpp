@@ -33,7 +33,24 @@ int ToDecimal(vector<bool> Binary)
 	return temp;
 }
 
+int Bitwise(int a, int b, string Operation)
+{
+	vector<bool> temp;
+	auto First = ToBinary(a);
+	auto Second = ToBinary(b);
+	auto its = Second.begin();
 
+	for (int bit = 0; bit < 16; bit++)
+	{	
+		bool result;
+		if (Operation == "AND")
+		{
+			result = First.at(bit) && Second.at(bit);
+		}
+		temp.push_back(result);
+	}
+	return ToDecimal(temp);
+}
 
 
 void Day_07(ifstream& InputFile)
