@@ -9,6 +9,18 @@
 
 using namespace std;
 
+vector<bool> ToBinary(int dec)
+{
+	vector<bool> temp(16,0);
+	int bit = 0;
+	while (dec > 0)
+	{
+		temp.at(bit) = dec % 2 == 1;
+		dec /= 2;
+		bit++;
+	}
+	return temp;
+}
 
 
 void Day_07(ifstream& InputFile)
