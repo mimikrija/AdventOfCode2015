@@ -22,6 +22,19 @@ vector<bool> ToBinary(int dec)
 	return temp;
 }
 
+int ToDecimal(vector<bool> Binary)
+{
+	int temp(0);
+	for ( int bit = 0; bit < 16; bit ++)
+	{
+		int digit = (Binary.at(bit)) == true ? 1 : 0;
+		temp += digit * pow(2,bit);
+	}
+	return temp;
+}
+
+
+
 
 void Day_07(ifstream& InputFile)
 {
