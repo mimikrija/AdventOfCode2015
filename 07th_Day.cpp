@@ -47,6 +47,10 @@ int Bitwise(int a, int b, string Operation)
 		{
 			result = First.at(bit) && Second.at(bit);
 		}
+		if (Operation == "OR")
+		{
+			result = First.at(bit) || Second.at(bit);
+		}
 		temp.push_back(result);
 	}
 	return ToDecimal(temp);
