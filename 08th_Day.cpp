@@ -8,17 +8,38 @@
 
 
 using namespace std;
-#define _CRT_SECURE_NO_WARNINGS_GLOBALS
-#define _CRT_SECURE_NO_WARNINGS
+
+bool CheckHex(int code)
+{
+	return ((code > 47 && code < 58) || (code > 96 && code < 103));
+}
 
 void Day_08(ifstream& InputFile)
 {
 	vector<char> ParenthesesList;
+	vector<int> Codes;
 	char inputChar;
 	while (InputFile >> inputChar)
 	{
 		ParenthesesList.push_back(inputChar);
+		Codes.push_back(int(inputChar));
 	}
+
+	int TotalSize = Codes.size();
+
+	auto it = Codes.begin();
+
+	while (it < Codes.end() - 3)
+	{
+		if (*it == 92 && *(it + 1) == 120 && CheckHex(*(it + 2)) && CheckHex(*(it + 3)))
+		{
+			Codes.erase(it, it + 3);
+			Codes.resize(Codes.end() - 3 - Codes.begin());
+		}
+		
+		it++; // vector iterator not incrementable!
+	}
+	int SizeNox = Codes.size();
 	
 	
 	
