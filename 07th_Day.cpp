@@ -40,6 +40,8 @@ int Bitwise(int a, string Operation, int b = -1)
 	auto Second = ToBinary(b);
 	auto its = Second.begin();
 
+	if (Operation == "") return a;
+
 	for (int bit = 0; bit < 16; bit++)
 	{	
 		bool result;
