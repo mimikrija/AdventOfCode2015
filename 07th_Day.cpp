@@ -100,28 +100,19 @@ void Day_07(ifstream& InputFile)
 	vector<pair<string, int>> ListOfSignals;
 	auto it = unique(SortedRight.begin(), SortedRight.end());
 	SortedRight.resize(it - SortedRight.begin());
-	for (auto Wire: SortedRight)
-	{
-		ListOfSignals.push_back(make_pair(Wire,-1));
-		// this should be a map <key,value>
-	}
 
-	// first initialize the clean ones and the "not" ones
-	// and then eliminate them from the instruction list
-
-	vector<pair<string, string>> CleanInstructions;
-
-	remove_if(All.begin(), All.end(), [&CleanInstructions](pair<string, string> Instruction)
+	// put the known values into ListOfSignals
+	// while removing them from the command list
+	remove_if(All.begin(), All.end(), [&ListOfSignals](auto Command)
 		{
-			for (string check : { "AND", "OR", "LSHIFT", "RSHIFT"})
+			auto it = find_if_not(Command.first.begin(), Command.first.end(),
+				[](char d) {return isdigit(d); });
+			if (it == Command.first.end())
 			{
-				if (Instruction.first.find(check) == string::npos)
-				{
-					CleanInstructions.push_back(Instruction);
-					return true;
-				}
-				else return false;
-			};
+				ListOfSignals.push_back(make_pair(Command.second,stoi(Command.first)));
+				return true;
+			}
+			else return false;
 		});
 
 	for (auto Instruction : All)
