@@ -33,7 +33,7 @@ int ToDecimal(vector<bool> Binary)
 	return temp;
 }
 
-int Bitwise(int a, int b, string Operation)
+int Bitwise(int a, string Operation, int b = -1)
 {
 	vector<bool> temp;
 	auto First = ToBinary(a);
@@ -50,6 +50,10 @@ int Bitwise(int a, int b, string Operation)
 		if (Operation == "OR")
 		{
 			result = First.at(bit) || Second.at(bit);
+		}
+		if (Operation == "NOT")
+		{
+			result = !First.at(bit);
 		}
 		temp.push_back(result);
 	}
