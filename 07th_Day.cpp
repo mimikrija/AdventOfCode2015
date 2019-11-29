@@ -35,13 +35,24 @@ int ToDecimal(vector<bool> Binary)
 
 int Bitwise(int a, string Operation, int b = -1)
 {
+	if (Operation == "") return a;
 	vector<bool> temp;
 	auto First = ToBinary(a);
+
+	if (Operation == "RSHIFT")
+	{
+		rotate(First.begin(), First.begin() + b, First.end());
+		return ToDecimal(First);
+	}
+
+	if (Operation == "LSHIFT")
+	{
+		rotate(First.begin(), First.end() - b, First.end());
+		return ToDecimal(First);
+	}
+
 	auto Second = ToBinary(b);
 	auto its = Second.begin();
-
-	if (Operation == "") return a;
-
 	for (int bit = 0; bit < 16; bit++)
 	{	
 		bool result;
