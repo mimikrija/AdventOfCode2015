@@ -42,12 +42,14 @@ int Bitwise(int a, string Operation, int b = -1)
 	if (Operation == "RSHIFT")
 	{
 		rotate(First.begin(), First.begin() + b, First.end());
+		fill(First.end() - b, First.end(), false);
 		return ToDecimal(First);
 	}
 
 	if (Operation == "LSHIFT")
 	{
 		rotate(First.begin(), First.end() - b, First.end());
+		fill(First.begin(), First.begin() + b, false);
 		return ToDecimal(First);
 	}
 
