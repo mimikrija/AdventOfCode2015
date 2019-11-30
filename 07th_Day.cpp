@@ -73,6 +73,29 @@ int Bitwise(int a, string Operation, int b = -1)
 	return ToDecimal(temp);
 }
 
+class Action
+{
+public:
+	Action();
+	~Action();
+	int Result; // result of the action
+	string Operation; // the operation to be performed
+	string First;	// the first operator
+	string Second; // the second operatior
+
+
+private:
+
+};
+
+Action::Action()
+{
+}
+
+Action::~Action()
+{
+}
+
 
 void Day_07(ifstream& InputFile)
 {
@@ -85,15 +108,15 @@ void Day_07(ifstream& InputFile)
 		string delimiter = "->";
 		string Inputs, OutputWire;
 		auto pos = line.find(delimiter);
-		OutputWire = line.substr(pos+3);
-		Inputs = line.substr(0,pos - 1);
+		OutputWire = line.substr(pos + 3);
+		Inputs = line.substr(0, pos - 1);
 
 		Left.push_back(Inputs);
 		Right.push_back(OutputWire);
 		All.push_back(make_pair(Inputs, OutputWire));
-		
+
 	}
-	
+
 	// initialize all signals to -1 signifying they are not active
 	SortedRight = Right;
 	sort(SortedRight.begin(), SortedRight.end());
@@ -115,7 +138,8 @@ void Day_07(ifstream& InputFile)
 			else return false;
 		});
 
-	for (auto Instruction : All)
+	auto at = All.begin();
+	while (at != All.end())
 	{
 		for (string check : { "AND", "OR", "LSHIFT", "RSHIFT", "NOT" });
 	}
