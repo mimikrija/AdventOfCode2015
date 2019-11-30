@@ -73,27 +73,64 @@ int Bitwise(int a, string Operation, int b = -1)
 	return ToDecimal(temp);
 }
 
-class Action
+class Command
 {
 public:
-	Action();
-	~Action();
-	int Result; // result of the action
+	Command(string &Line);
+	~Command();
+	int getresult();
+	int Result = -1; // result of the Command
 	string Operation; // the operation to be performed
-	string First;	// the first operator
-	string Second; // the second operatior
+	string FirstSymbol;	// the first operator
+	string SecondSymbol; // the second operatior
+	string ResultSymbol;
+	int First, Second;
 
 
 private:
 
 };
 
-Action::Action()
+// constructor from an input Line
+Command::Command(string &Line)
+{
+	auto pos = Line.find("->");
+	ResultSymbol = Line.substr(pos + 3);
+	Line.erase(pos-1);
+	pos = Line.rfind(" ");
+	if (pos == string::npos)
+	{
+		SecondSymbol = Line;
+		FirstSymbol = "";
+		Operation = "";
+	}
+	else
+	{
+		SecondSymbol = Line.substr(pos+1);
+		Line.erase(pos);
+		pos = Line.rfind(" ");
+		if (pos == string::npos)
+		{
+			Operation = "NOT";
+			FirstSymbol = "";
+		}
+		else
+		{
+			Operation = Line.substr(pos + 1);
+			FirstSymbol = Line.substr(0, pos);
+		}
+	}
+
+
+}
+
+Command::~Command()
 {
 }
 
-Action::~Action()
+int Command::getresult()
 {
+	return Result;
 }
 
 
