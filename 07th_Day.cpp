@@ -77,18 +77,24 @@ class Command
 {
 public:
 	Command(string &Line);
+	void FillSolutions(vector<pair<string, int>>);
+	void KnownSolutions();
+	void Solve();
 	~Command();
 	int getresult();
+	bool IsSolved();
 	int Result = -1; // result of the Command
 	string Operation; // the operation to be performed
 	string FirstSymbol;	// the first operator
 	string SecondSymbol; // the second operatior
 	string ResultSymbol;
-	int First, Second;
+	int First = -1;
+	int Second = -1;
+	bool IsPushed = false;
 
 
 private:
-
+	bool StringIsNumber(string);
 };
 
 // constructor from an input Line
@@ -121,7 +127,35 @@ Command::Command(string &Line)
 		}
 	}
 
+}
 
+void Command::Solve()
+{
+	if (Second != -1 && (Operation == "" || Operation == "NOT"))
+		Result = Bitwise(Second, Operation);
+	
+	if (Second != -1 && First != -1)
+		Result = Bitwise(First, Operation, Second);
+}
+
+void Command::FillSolutions(vector<pair<string, int>> Solutions)
+{
+	for (auto Solution : Solutions)
+	{
+		if (Solution.first == FirstSymbol) First = Solution.second;
+		if (Solution.first == SecondSymbol) Second = Solution.second;
+	}
+}
+
+void Command::KnownSolutions()
+{
+	if (StringIsNumber(SecondSymbol)) Second = stoi(SecondSymbol);
+	if (StringIsNumber(FirstSymbol)) First = stoi(FirstSymbol);
+}
+
+bool Command::IsSolved()
+{
+	return Result != -1;
 }
 
 Command::~Command()
@@ -133,62 +167,45 @@ int Command::getresult()
 	return Result;
 }
 
+bool Command::StringIsNumber(string test)
+{
+	auto sit = find_if_not(test.begin(), test.end(),
+		[](char d) {return isdigit(d); });
+	return (sit == test.end() && test.size()>0);
+}
 
 void Day_07(ifstream& InputFile)
 {
-	string line, Action;
-	vector<string> Left, Right, SortedRight;
-	vector<pair<string, string>> All;
+	string line;
+	vector<pair<string,int>> testing;
+	vector<Command> AllCommands;
+	
 	// parse input
 	while (getline(InputFile, line))
 	{
-		string delimiter = "->";
-		string Inputs, OutputWire;
-		auto pos = line.find(delimiter);
-		OutputWire = line.substr(pos + 3);
-		Inputs = line.substr(0, pos - 1);
-
-		Left.push_back(Inputs);
-		Right.push_back(OutputWire);
-		All.push_back(make_pair(Inputs, OutputWire));
-
+		Command OneCommand(line);
+		OneCommand.KnownSolutions();
+		AllCommands.push_back(OneCommand);
 	}
 
-	// initialize all signals to -1 signifying they are not active
-	SortedRight = Right;
-	sort(SortedRight.begin(), SortedRight.end());
-	vector<pair<string, int>> ListOfSignals;
-	auto it = unique(SortedRight.begin(), SortedRight.end());
-	SortedRight.resize(it - SortedRight.begin());
 
-	// put the known values into ListOfSignals
-	// while removing them from the command list
-	remove_if(All.begin(), All.end(), [&ListOfSignals](auto Command)
-		{
-			auto it = find_if_not(Command.first.begin(), Command.first.end(),
-				[](char d) {return isdigit(d); });
-			if (it == Command.first.end())
-			{
-				ListOfSignals.push_back(make_pair(Command.second,stoi(Command.first)));
-				return true;
-			}
-			else return false;
-		});
-
-	auto at = All.begin();
-	while (at != All.end())
+	while (testing.size() < AllCommands.size())
 	{
-		for (string check : { "AND", "OR", "LSHIFT", "RSHIFT", "NOT" });
+		for (auto& OneCommand : AllCommands) OneCommand.FillSolutions(testing);
+		for (auto& OneCommand : AllCommands)
+		{
+			if (OneCommand.IsPushed) continue;
+			OneCommand.Solve();
+			if (OneCommand.IsSolved())
+			{
+				testing.push_back(make_pair(OneCommand.ResultSymbol, OneCommand.Result));
+				OneCommand.IsPushed = true;
+				if (OneCommand.ResultSymbol == "a") cout << "a is: " << OneCommand.Result << "\n";
+			}
+		}
 	}
 
-	// define actions
-	//for (string check : { "AND", "OR", "LSHIFT", "RSHIFT", "NOT" })
-	//{
-	//	if (Inputs.find(check) != string::npos)
-	//	{
-	//		Action = check;
-	//		break;
-	//	}
-	//}
 
+	//cout << "Last wire is: " << testing.back().first << ", which ultimatively has signal " << testing.back().second << "! \n";
+	// 46065
 }
