@@ -180,7 +180,7 @@ void Day_07(ifstream& InputFile)
 {
 	string line;
 	vector<pair<string,int>> testing;
-	vector<Command> AllCommands;
+	vector<Command> AllCommands,AllCommandsPartTwo;
 	
 	// parse input
 	while (getline(InputFile, line))
@@ -189,6 +189,8 @@ void Day_07(ifstream& InputFile)
 		OneCommand.KnownSolutions();
 		AllCommands.push_back(OneCommand);
 	}
+	AllCommandsPartTwo = AllCommands;
+	
 
 
 	while (testing.size() < AllCommands.size())
@@ -207,7 +209,37 @@ void Day_07(ifstream& InputFile)
 		}
 	}
 
+	// part 2
+	// rewire output of "a" onto "b" reset everything, rerun and find out what "a" is.
+	
+	Command CommandB(string("46065 -> b"));
+	replace_if(AllCommandsPartTwo.begin(), AllCommandsPartTwo.end(),
+		[](auto OneCommand)
+		{
+			return OneCommand.ResultSymbol == "b";
+		}, CommandB);
+
+	for (auto& OneCommand : AllCommandsPartTwo) OneCommand.KnownSolutions();
+
+	testing = {};
+
+	while (testing.size() < AllCommandsPartTwo.size())
+	{
+		for (auto& OneCommand : AllCommandsPartTwo) OneCommand.FillSolutions(testing);
+		for (auto& OneCommand : AllCommandsPartTwo)
+		{
+			if (OneCommand.IsPushed) continue;
+			OneCommand.Solve();
+			if (OneCommand.IsSolved())
+			{
+				testing.push_back(make_pair(OneCommand.ResultSymbol, OneCommand.Result));
+				OneCommand.IsPushed = true;
+				if (OneCommand.ResultSymbol == "a") cout << "a is: " << OneCommand.Result << "\n";
+			}
+		}
+	}
 
 	//cout << "Last wire is: " << testing.back().first << ", which ultimatively has signal " << testing.back().second << "! \n";
 	// 46065
+	// Part two: 14134
 }
