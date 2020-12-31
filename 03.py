@@ -6,19 +6,16 @@ DIRECTIONS = {
 }
 
 with open('inputs/input03') as input_file:
-    inputs = input_file.read().strip()
+    eggnogg_instructions = input_file.read().strip()
 
-def visit_houses(inputs):
+def visit_houses(instructions):
     house = 0 + 0j
     visited_houses = {house}
-    for arrow in inputs:
+    for arrow in instructions:
         house += DIRECTIONS[arrow]
         visited_houses.add(house)
     return visited_houses
 
-part_1 = len(visit_houses(inputs))
-
-print(f'The number of houses which recieve at least one present is {part_1}!')
-# The number of houses which recieve at least one present is 2081!
-
-
+part_1 = len(visit_houses(eggnogg_instructions))
+print(f'The number of houses which receive at least one present is {part_1}!')
+# The number of houses which receive at least one present is 2081!
