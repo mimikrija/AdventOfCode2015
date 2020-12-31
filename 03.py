@@ -19,3 +19,10 @@ def visit_houses(instructions):
 part_1 = len(visit_houses(eggnogg_instructions))
 print(f'The number of houses which receive at least one present is {part_1}!')
 # The number of houses which receive at least one present is 2081!
+
+santa_instructions = (instruction for n, instruction in enumerate(eggnogg_instructions) if n%2 == 0)
+robo_santa_instructions = (instruction for n, instruction in enumerate(eggnogg_instructions) if n%2 == 1)
+
+part_2 = len(visit_houses(santa_instructions) | visit_houses(robo_santa_instructions))
+print(f'When Robo-Santa helps, the number of houses which receive at least one present is {part_2}!')
+# When Robo-Santa helps, the number of houses which receive at least one present is 2341!
