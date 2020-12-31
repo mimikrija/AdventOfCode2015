@@ -14,8 +14,41 @@ bool CheckHex(int code)
 	return ((code > 47 && code < 58) || (code > 96 && code < 103));
 }
 
+int CounterOfSubs(string Input,string target)
+{
+	int pos = 0,occurrences = 0;
+	while ((pos = Input.find(target, pos)) != string::npos)
+	{
+		++occurrences;
+		pos += target.length();
+	}
+	if (target == "\\x") return occurrences * 3;
+	else return occurrences;
+}
+
 void Day_08(ifstream& InputFile)
 {
+	int ActualTotalLength = 0,TotalLength = 0;
+	vector<string> ListOfInputStrings{ istream_iterator<string>{InputFile},{} };
+	for (auto input : ListOfInputStrings)
+	{
+		ActualTotalLength += input.size();
+		TotalLength += input.size();
+		int hexcount = CounterOfSubs(input, "\\x"); // 
+		int quotecount = CounterOfSubs(input, "\""); // 
+		int backslashcount = CounterOfSubs(input, "\\") - (quotecount-2) - (hexcount/3); //
+		int test1 = input.size();
+		int test2 = input.size()- (hexcount + backslashcount + quotecount);
+		ActualTotalLength -=  (hexcount + backslashcount + quotecount);
+	}
+	
+	cout << "Difference between lengths is: " << TotalLength - ActualTotalLength << "\n";
+	
+	// 4858 - too high
+	// 1452 - too high
+	// 1100 - too low
+
+
 	vector<char> ParenthesesList;
 	vector<int> Codes;
 	char inputChar;
@@ -29,7 +62,7 @@ void Day_08(ifstream& InputFile)
 
 	auto it = Codes.begin();
 
-	while (it < Codes.end() - 3)
+	while (it < Codes.end() - 4)
 	{
 		if (*it == 92 && *(it + 1) == 120 && CheckHex(*(it + 2)) && CheckHex(*(it + 3)))
 		{
@@ -37,7 +70,7 @@ void Day_08(ifstream& InputFile)
 			Codes.resize(Codes.end() - 3 - Codes.begin());
 		}
 		
-		it++; // vector iterator not incrementable!
+		//it++; // vector iterator not incrementable!
 	}
 	int SizeNox = Codes.size();
 	
