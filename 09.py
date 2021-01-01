@@ -2,10 +2,7 @@
 import itertools
 
 def calculate_distance(combo, nodes_and_distances):
-    distance = 0
-    for pair in zip(combo, combo[1:]):
-        distance += nodes_and_distances[pair]
-    return distance
+    return sum(nodes_and_distances[pair] for pair in zip(combo, combo[1:]))
 
 
 with open('inputs/input09') as input_file:
@@ -19,7 +16,6 @@ for line in star_distances:
     for star_pair in itertools.permutations(names.split(' to ')):
         DISTANCES_BETWEEN_STARS[star_pair] = distance
     STARS |= set(star_pair)
-
 
 
 all_distances = [calculate_distance(combo, DISTANCES_BETWEEN_STARS) for combo in itertools.permutations(STARS)]
