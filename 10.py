@@ -1,21 +1,23 @@
 # Day 10: Elves Look, Elves Say
 
-puzzle_input = '1113122113'
+puzzle_input = list(map(int,('1113122113')))
 
 def say_numbers(in_string):
     digit = in_string[0]
     counter = 1
-    out_string = ''
+    out_string = list()
 
     for pos in range(1, len(in_string)):
         if in_string[pos] == digit:
             counter += 1
         else:
-            out_string += str(counter) + digit
+            out_string.append(counter)
+            out_string.append(digit)
             digit = in_string[pos]
             counter = 1
 
-    out_string += str(counter) + digit
+    out_string.append(counter)
+    out_string.append(digit)
     return out_string
 
 def play_the_elf_game(in_string, rep):
