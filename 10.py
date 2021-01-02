@@ -30,3 +30,14 @@ for rounds in {40, 50}:
 
 # The length of the sequence after 40 rounds of the "Say numbers" game is: 360154!
 # The length of the sequence after 50 rounds of the "Say numbers" game is: 5103798!
+
+# Some Conway 'trivia':
+
+# print(play_the_elf_game('3', 5) == puzzle_input) # True
+# My puzzle input is actually the 6th member of a "Say numbers" sequence started by a starting number 3
+
+# the solutions exist in a form of a sequence here: https://oeis.org/A022471/b022471.txt https://oeis.org/A022471
+
+# 360154 is the 46th member
+# 5103798 is the 56th member
+# of the sequence listing the say numbers n-th member length
