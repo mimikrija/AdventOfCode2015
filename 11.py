@@ -3,9 +3,9 @@
 inc_letter = lambda c: 97 if c == 122 else c + 1
 
 def increment_password(in_password):
-    remainder = 0
+    remainder = 1
     for pos in range(len(in_password)-1, -1, -1):
-        if ord(in_password[pos]) + remainder == 122:
+        if ord(in_password[pos]) + remainder > 122:
             new_value = 97
             remainder = 1
         else:
