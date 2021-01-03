@@ -19,15 +19,16 @@ def increment_password(in_password):
             return in_password
 
 
-
 def has_three_conseq_letters(password):
     for c in range(len(password)-2):
         if ord(password[c]) == ord(password[c+1]) - 1 == ord(password[c+2]) - 2:
             return True
     return False
 
+
 def does_not_have_iol(password):
-    return all(c not in password for c in 'iol')
+    return not any(c in password for c in 'iol')
+
 
 def contains_two_pairs(password):
     previous_match = ''
