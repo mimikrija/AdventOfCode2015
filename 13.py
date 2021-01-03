@@ -27,6 +27,17 @@ for line in potential_happiness_input:
 
 possible_seating_arrrangements = list(combo for combo in itertools.permutations(NAMES))
 scores = (calculate_change_in_happiness(combo) for combo in possible_seating_arrrangements)
+print(max(scores)) # 618
 
-print(max(scores))
+for name in NAMES:
+    pair_1 = (name, "me")
+    pair_2 = ("me", name)
+    HAPPINESS_CALCULATION[pair_1] = 0
+    HAPPINESS_CALCULATION[pair_2] = 0
+
+
+possible_seating_arrrangements = list(combo for combo in itertools.permutations(NAMES|{"me"}))
+scores = (calculate_change_in_happiness(combo) for combo in possible_seating_arrrangements)
+
+print(max(scores)) # 601
 
