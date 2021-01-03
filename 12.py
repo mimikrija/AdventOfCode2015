@@ -1,7 +1,7 @@
 import json
 
-def get_int_items(in_item, out, is_part_2 = False):
-    for item in in_item:
+def get_int_items(in_items, out, is_part_2 = False):
+    for item in in_items:
         if isinstance(item, int):
             out.append(item)
         if isinstance(item, list):
@@ -13,17 +13,20 @@ def get_int_items(in_item, out, is_part_2 = False):
                 get_int_items(item.values(), out, is_part_2)
     return out
 
-dict_json = dict()
+
+def count_all_ints(in_items, is_part_2 = False):
+    solution = list()
+    get_int_items(in_items, solution, is_part_2)
+    return sum(solution)
+
+
 with open('inputs/input12') as input_file:
     input_json = json.loads(input_file.read())
 
-solution_1 = list()
-get_int_items(input_json, solution_1)
-part_1 = sum(solution_1)
-print(part_1) # 156366 # 96852 part 2
+part_1, part_2 = (count_all_ints(input_json, is_part_2) for is_part_2 in {False, True})
 
-solution_2 = list()
-get_int_items(input_json, solution_2, True)
-part_2 = sum(solution_2)
-print(part_2)
+print(f'Part 1 solution is: {part_1}!')
+# Part 1 solution is: 156366!
 
+print(f'Part 2 solution is: {part_2}!')
+# Part 2 solution is: 96852!
