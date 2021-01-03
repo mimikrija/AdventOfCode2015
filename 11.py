@@ -1,7 +1,5 @@
 # Day 11: Corporate Policy
 
-inc_letter = lambda c: 97 if c == 122 else c + 1
-
 def increment_password(in_password):
     increment = 1
     for pos in range(len(in_password)-1, -1, -1):
@@ -41,17 +39,27 @@ def contains_two_pairs(password):
             return True
     return False
 
+
 def is_valid(password):
     # Passwords must include one increasing straight of at least three letters
     # Passwords may not contain the letters i, o, or l
     # Passwords must contain at least two different, non-overlapping pairs of letters, like aa, bb, or zz
     return has_three_conseq_letters(password) and does_not_have_iol(password) and contains_two_pairs(password)
 
-my_input = list('hxbxwxba')
 
-new_password = list(my_input)
+def find_new_valid(in_password):
+    new_password = list(in_password)
+    while True:
+        new_password = increment_password(new_password)
+        if is_valid(new_password):
+            return "".join(c for c in new_password)
 
-while not is_valid(new_password):
-    new_password = increment_password(new_password)
+my_input = 'hxbxwxba'
 
-print("".join(c for c in new_password)) # not hxcaabcc
+part_1 = find_new_valid(my_input)
+print(f'Next valid password after {my_input} is {part_1}!')
+# Next valid password after hxbxwxba is hxbxxyzz!
+
+part_2 = find_new_valid(part_1)
+print(f'Next valid password after {part_1} is {part_2}!')
+# Next valid password after hxbxxyzz is hxcaabcc!
