@@ -41,11 +41,10 @@ def contains_two_pairs(password):
     return False
 
 def is_valid(password):
-    # Passwords must include one increasing straight of at least three letter
-    status = has_three_conseq_letters(password)
-    status &= does_not_have_iol(password)
-    status &= contains_two_pairs(password)
-    return status
+    # Passwords must include one increasing straight of at least three letters
+    # Passwords may not contain the letters i, o, or l
+    # Passwords must contain at least two different, non-overlapping pairs of letters, like aa, bb, or zz
+    return has_three_conseq_letters(password) and does_not_have_iol(password) and contains_two_pairs(password)
 
 my_input = list('hxbxwxba')
 
