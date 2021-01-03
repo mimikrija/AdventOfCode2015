@@ -3,16 +3,19 @@
 inc_letter = lambda c: 97 if c == 122 else c + 1
 
 def increment_password(in_password):
-    remainder = 1
+    increment = 1
     for pos in range(len(in_password)-1, -1, -1):
-        if ord(in_password[pos]) + remainder > 122:
-            new_value = 97
-            remainder = 1
+        new_value = ord(in_password[pos]) + increment
+        if new_value <= 122: # z or 'less'
+            # no wrap around
+            increment = 0
         else:
-            new_value = ord(in_password[pos]) + 1
-            remainder = 0
+            # wrap around
+            new_value = 97 # a
+            increment = 1
+
         in_password[pos] = chr(new_value)
-        if remainder == 0:
+        if increment == 0:
             return in_password
 
 
