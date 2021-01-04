@@ -24,17 +24,20 @@ for line in raindeer_input:
 
 RACE_DURATION = 2503
 
-distances = (distance_travelled(RACE_DURATION, *raindeer) for raindeer in raindeer_data.values())
+part_1 = max(distance_travelled(RACE_DURATION, *raindeer) for raindeer in raindeer_data.values())
+print(f'The winning raindeer has travelled {part_1} km!')
+# The winning raindeer has travelled 2696 km!
 
-print(max(distances)) # 2696
+def new_rules():
+    total_points = {raindeer: 0 for raindeer in raindeer_data.keys()}
+    for time in range(1, RACE_DURATION+1):
+        current_points = {raindeer_name: distance_travelled(time, *raindeer) for raindeer_name, raindeer in raindeer_data.items()}
+        winning_distance = max(current_points.values())
+        for raindeer_name, distance in current_points.items():
+            if distance == winning_distance:
+                total_points[raindeer_name] += 1
+    return max(total_points.values())
 
-total_points = {raindeer: 0 for raindeer in raindeer_data.keys()}
-for time in range(1,RACE_DURATION+1):
-    current_points = {raindeer_name: distance_travelled(time, *raindeer) for raindeer_name, raindeer in raindeer_data.items()}
-    winning_distance = max(current_points.values())
-    for raindeer_name, distance in current_points.items():
-        if distance == winning_distance:
-            total_points[raindeer_name] += 1
-
-print(max(total_points.values()))
-
+part_2 = new_rules()
+print(f'Following the new rules, the winning raindeer has {part_2} points!')
+# Following the new rules, the winning raindeer has 1084 points!
