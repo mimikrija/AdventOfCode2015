@@ -12,28 +12,20 @@ def split_properties(in_rest):
         out_pairs.append((prop, value))
     return out_pairs
 
-def calculate_cookie_score(in_properties, ratios):
+def calculate_cookie_score(in_properties, ratios, is_part_2 = False):
     total_capacity = 0
     total_durability = 0
     total_flavor = 0
     total_texture = 0
     total_calories = 0
     for factor, props in zip(ratios, in_properties.values()):
-        #print(factor, props)
         total_capacity += factor * props['capacity']
         total_durability += factor * props['durability']
         total_flavor += factor * props['flavor']
         total_texture += factor * props['texture']
         total_calories += factor * props['calories']
-    #print(ratios)
-    #print((total_capacity, total_durability, total_flavor, total_texture))
-    totals = [total_capacity, total_durability, total_flavor, total_texture]
-    for n, total in enumerate(totals):
-        if total < 0:
-            totals[n] = 0
-    #print((total_capacity, total_durability, total_flavor, total_texture))
-   # print(totals)
-    if total_calories == 500:
+    totals = (total if total > 0 else 0 for total in (total_capacity, total_durability, total_flavor, total_texture))
+    if not is_part_2 or (is_part_2 and total_calories == 500):
         return reduce(mul, totals)
     else:
         return 0
