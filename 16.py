@@ -1,6 +1,7 @@
 # Day 16: Aunt Sue
 
 import re
+import operator
 
 CORRECT_AUNT_SUE = {
     'children': 3,
@@ -20,14 +21,19 @@ def find_correct_sue(in_aunts):
         if aunt.items() & CORRECT_AUNT_SUE.items() == aunt.items():
             return num + 1
 
+def check_items(in_aunt, set_to_check, oper, inc):
+    return all(oper(in_aunt.get(key, CORRECT_AUNT_SUE[key] + inc), CORRECT_AUNT_SUE[key]) for key in set_to_check)
+
 def find_real_aunt_sue(in_aunts):
+    more_than = ({'cats', 'trees'}, operator.gt, 1)
+    less_than = ({'pomeranians', 'goldfish'}, operator.lt, -1)
+    same = (CORRECT_AUNT_SUE.keys() - less_than[0] - more_than[0], operator.eq, 0)
+
     for num, aunt in enumerate(in_aunts):
-        if (aunt.get('cats', CORRECT_AUNT_SUE['cats']+1) > CORRECT_AUNT_SUE['cats'] and
-            aunt.get('trees', CORRECT_AUNT_SUE['trees']+1)> CORRECT_AUNT_SUE['trees'] and
-            aunt.get('pomeranians', CORRECT_AUNT_SUE['pomeranians']-1) < CORRECT_AUNT_SUE['pomeranians'] and
-            aunt.get('goldfish', CORRECT_AUNT_SUE['goldfish']-1) < CORRECT_AUNT_SUE['goldfish']):
-            if all(aunt.get(key, CORRECT_AUNT_SUE[key]) == CORRECT_AUNT_SUE[key] for key in CORRECT_AUNT_SUE.keys()-{'cats', 'trees', 'pomeranians', 'goldfish'}):
-                return num + 1
+        if (check_items(aunt, *more_than) and 
+            check_items(aunt, *less_than) and
+            check_items(aunt, *same)):
+            return num + 1
 
 
 re_words = re.compile(r'[a-z]+')
