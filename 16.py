@@ -19,7 +19,16 @@ def find_correct_sue(in_aunts):
     for num, aunt in enumerate(in_aunts):
         if aunt.items() & CORRECT_AUNT_SUE.items() == aunt.items():
             return num + 1
-            
+
+def find_real_aunt_sue(in_aunts):
+    for num, aunt in enumerate(in_aunts):
+        if (aunt.get('cats', CORRECT_AUNT_SUE['cats']+1) > CORRECT_AUNT_SUE['cats'] and
+            aunt.get('trees', CORRECT_AUNT_SUE['trees']+1)> CORRECT_AUNT_SUE['trees'] and
+            aunt.get('pomeranians', CORRECT_AUNT_SUE['pomeranians']-1) < CORRECT_AUNT_SUE['pomeranians'] and
+            aunt.get('goldfish', CORRECT_AUNT_SUE['goldfish']-1) < CORRECT_AUNT_SUE['goldfish']):
+            if all(aunt.get(key, CORRECT_AUNT_SUE[key]) == CORRECT_AUNT_SUE[key] for key in CORRECT_AUNT_SUE.keys()-{'cats', 'trees', 'pomeranians', 'goldfish'}):
+                return num + 1
+
 
 re_words = re.compile(r'[a-z]+')
 re_numbers = re.compile(r'\d+')
@@ -35,3 +44,4 @@ for line in aunts_input:
     all_aunts.append(aunt)
 
 print(find_correct_sue(all_aunts)) # 103
+print(find_real_aunt_sue(all_aunts)) # 405
