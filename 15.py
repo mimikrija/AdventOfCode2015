@@ -12,29 +12,28 @@ def split_properties(in_rest):
         out_pairs.append((prop, value))
     return out_pairs
 
+
 def calculate_cookie_score(in_properties, ratios, is_part_2 = False):
-    total_capacity = 0
-    total_durability = 0
-    total_flavor = 0
-    total_texture = 0
-    total_calories = 0
-    for factor, props in zip(ratios, in_properties.values()):
-        total_capacity += factor * props['capacity']
-        total_durability += factor * props['durability']
-        total_flavor += factor * props['flavor']
-        total_texture += factor * props['texture']
-        total_calories += factor * props['calories']
+    totals = {prop: 0 for prop in PROPERTIES}
 
-    totals = (total if total > 0 else 0 for total in (total_capacity, total_durability, total_flavor, total_texture))
+    for factor, ingredient in zip(ratios, in_properties.values()):
+        for prop in totals.keys():
+            totals[prop] += factor * ingredient[prop]
 
-    if not is_part_2 or (is_part_2 and total_calories == 500):
-        return reduce(mul, totals)
+    for prop, total in totals.items():
+        if total < 0:
+            totals[prop] = 0
+
+    if not is_part_2 or (is_part_2 and totals['calories'] == 500):
+        return reduce(mul, (total for prop, total in totals.items() if prop != 'calories'))
     else:
         return 0
+
 
 def get_best_cookie_score(in_properties, is_part_2 = False):
     combos = (combo for combo in itertools.permutations(range(1,101), NUM_OF_INGREDIENTS) if sum(combo) == 100)
     return max (calculate_cookie_score(all_properties, combo, is_part_2) for combo in combos)
+
 
 with open('inputs/input15') as input_file:
     ingredients_input = input_file.readlines()
@@ -47,6 +46,7 @@ for line in ingredients_input:
     properties = {prop: int(value) for prop, value in split_properties(rest)}
     all_properties[ingredient] = properties
 
+PROPERTIES = set(properties.keys())
 
 part_1, part_2 = (get_best_cookie_score(all_properties, is_part_2) for is_part_2 in {False, True})
 
