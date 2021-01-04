@@ -15,6 +15,12 @@ CORRECT_AUNT_SUE = {
     'perfumes': 1,
 }
 
+def find_correct_sue(in_aunts):
+    for num, aunt in enumerate(in_aunts):
+        if aunt.items() & CORRECT_AUNT_SUE.items() == aunt.items():
+            return num + 1
+            
+
 re_words = re.compile(r'[a-z]+')
 re_numbers = re.compile(r'\d+')
 
@@ -28,3 +34,4 @@ for line in aunts_input:
     aunt = {aunt_key: aunt_value for aunt_key, aunt_value in zip(aunt_keys, aunt_values)}
     all_aunts.append(aunt)
 
+print(find_correct_sue(all_aunts)) # 103
