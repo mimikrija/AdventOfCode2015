@@ -30,9 +30,7 @@ def find_real_aunt_sue(in_aunts):
     same = (CORRECT_AUNT_SUE.keys() - less_than[0] - more_than[0], operator.eq, 0)
 
     for num, aunt in enumerate(in_aunts):
-        if (check_items(aunt, *more_than) and 
-            check_items(aunt, *less_than) and
-            check_items(aunt, *same)):
+        if all(check_items(aunt, *rule) for rule in (more_than, less_than, same)):
             return num + 1
 
 
