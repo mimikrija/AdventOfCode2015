@@ -27,3 +27,14 @@ race_time = 2503
 distances = (distance_travelled(race_time, *raindeer) for raindeer in raindeer_data.values())
 
 print(max(distances)) # 2696
+
+total_points = {raindeer: 0 for raindeer in raindeer_data.keys()}
+for time in range(1,race_time+1):
+    current_points = {raindeer_name: distance_travelled(time, *raindeer) for raindeer_name, raindeer in raindeer_data.items()}
+    winning_distance = max(current_points.values())
+    for raindeer_name, distance in current_points.items():
+        if distance == winning_distance:
+            total_points[raindeer_name] += 1
+
+print(max(total_points.values()))
+
