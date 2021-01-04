@@ -33,7 +33,10 @@ def calculate_cookie_score(in_properties, ratios):
             totals[n] = 0
     #print((total_capacity, total_durability, total_flavor, total_texture))
    # print(totals)
-    return reduce(mul, totals)
+    if total_calories == 500:
+        return reduce(mul, totals)
+    else:
+        return 0
 
 
 
