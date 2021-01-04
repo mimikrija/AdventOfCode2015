@@ -43,5 +43,10 @@ for line in aunts_input:
     aunt = {aunt_key: aunt_value for aunt_key, aunt_value in zip(aunt_keys, aunt_values)}
     all_aunts.append(aunt)
 
-print(find_correct_sue(all_aunts)) # 103
-print(find_real_aunt_sue(all_aunts)) # 405
+part_1, part_2 = find_correct_sue(all_aunts), find_real_aunt_sue(all_aunts)
+
+print(f'The aunt we are looking for is aunt Sue {part_1}!')
+# The aunt we are looking for is aunt Sue 103!
+
+print(f'Actually, the real aunt we are looking for is aunt Sue {part_2}!')
+# Actually, the real aunt we are looking for is aunt Sue 405!
