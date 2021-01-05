@@ -1,9 +1,9 @@
 # Day 17: No Such Thing as Too Much
 import itertools
 
-LITERS = 150
+LITERS = 25
 CONTAINERS = (5, 5, 10, 15, 20)
-FACTOR_RANGES = [range(1, LITERS//container + 1) for container in CONTAINERS]
+FACTOR_RANGES = [range(0, LITERS//container + 1) for container in CONTAINERS]
 
 
 
