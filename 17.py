@@ -3,7 +3,7 @@ import itertools
 
 LITERS = 150
 CONTAINERS = (5, 5, 10, 15, 20)
-FACTOR_RANGES = [range(0, LITERS//container + 1) for container in CONTAINERS]
+FACTOR_RANGES = [range(1, LITERS//container + 1) for container in CONTAINERS]
 
 
 
@@ -16,4 +16,4 @@ for combo in combos:
         counter += 1
 
 
-print(counter) # 2724 too high
+print(counter) # 2724 too high # 609 too low
