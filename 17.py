@@ -1,11 +1,15 @@
 # Day 17: No Such Thing as Too Much
 import itertools
 
-LITERS = 25
-CONTAINERS = (5, 5, 10, 15, 20)
-FACTOR_RANGES = [range(0, LITERS//container + 1) for container in CONTAINERS]
+with open('inputs/input17') as input_file:
+    input_containers = input_file.readlines()
 
+CONTAINERS = tuple(int(num) for num in input_containers)
 
+LITERS = 150
+#CONTAINERS = (5, 5, 10, 15, 20)
+FACTOR_RANGES = [range(0,2) for container in CONTAINERS]
+print(len(CONTAINERS))
 
 combos = (combo for combo in itertools.product(*FACTOR_RANGES))
 
