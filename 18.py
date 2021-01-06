@@ -20,7 +20,7 @@ def neighbors(in_coordinate):
                 if all(0 <= t < DIMENSION for t in add_coordinates(in_coordinate, delta)))
 
 
-def turn_on_the_lights(in_lights_on, ALWAYS_ON = set()):
+def turn_on_the_lights(in_lights_on, always_on_lights = set()):
     out_lights_on = set()
     relevant_off_lights = set()
     for light in in_lights_on:
@@ -32,13 +32,13 @@ def turn_on_the_lights(in_lights_on, ALWAYS_ON = set()):
         if ((light in in_lights_on and count_neighbors in {2, 3}) or
              light in relevant_off_lights and count_neighbors == 3):
             out_lights_on.add(light)
-    return out_lights_on | ALWAYS_ON
+    return out_lights_on | always_on_lights
 
 
-def lights_on_after_cycles(in_lights_on, cycles, ALWAYS_ON = set()):
-    lights_on = set(in_lights_on) | ALWAYS_ON
+def lights_on_after_cycles(in_lights_on, cycles, always_on_lights = set()):
+    lights_on = set(in_lights_on) | always_on_lights
     for _ in range(cycles):
-        lights_on = turn_on_the_lights(lights_on, ALWAYS_ON)
+        lights_on = turn_on_the_lights(lights_on, always_on_lights)
     return len(lights_on)
 
 
@@ -50,8 +50,8 @@ print(f'After {cycles} cycles, there are {part_1} lights left on!')
 # After 100 cycles, there are 814 lights left on!
 
 # part 2: four corners are always on!
-ALWAYS_ON = set(itertools.product({0, DIMENSION-1}, repeat=2))
+always_on_lights = set(itertools.product({0, DIMENSION-1}, repeat=2))
 
-part_2 = lights_on_after_cycles(all_lights, cycles, ALWAYS_ON)
+part_2 = lights_on_after_cycles(all_lights, cycles, always_on_lights)
 print(f'After {cycles} cycles, and four corner lights always on, there are {part_2} lights left on!')
 # After 100 cycles, and four corner lights always on, there are 924 lights left on!
