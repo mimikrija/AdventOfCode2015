@@ -7,11 +7,7 @@ from functools import reduce
 
 def split_properties(in_rest):
     pairs = in_rest.split(', ')
-    out_pairs = []
-    for pair in pairs:
-        prop, value = pair.split(' ')
-        out_pairs.append((prop, value))
-    return out_pairs
+    return (tuple(pair.split(' ')) for pair in pairs)
 
 
 def calculate_cookie_score(in_ingredients, spoon_ratio, is_part_2 = False):
