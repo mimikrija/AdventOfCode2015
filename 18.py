@@ -17,7 +17,7 @@ def add_coordinates(tuple_1, tuple_2):
 
 def neighbors(in_coordinate):
     return set(add_coordinates(in_coordinate, delta) for delta in DELTAS
-            if 0 <= add_coordinates(in_coordinate, delta)[0] < DIMENSION and 0 <= add_coordinates(in_coordinate, delta)[1] < DIMENSION)
+                if all(0 <= t < DIMENSION for t in add_coordinates(in_coordinate, delta)))
 
 
 def turn_on_the_lights(in_lights_on, ALWAYS_ON = set()):
