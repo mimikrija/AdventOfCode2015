@@ -6,9 +6,8 @@ DELTAS = set(itertools.product({-1, 0, 1}, repeat=2)) - {(0,0)}
 def parse_input(in_file):
     with open(in_file) as input_file:
         light_lines = input_file.readlines()
-    global DIMENSION
     DIMENSION = len(light_lines)
-    return {(row, column) for row, line in enumerate(light_lines) for column, light in enumerate(line) if light == '#' }
+    return DIMENSION, {(row, column) for row, line in enumerate(light_lines) for column, light in enumerate(line) if light == '#' }
 
 
 def add_coordinates(tuple_1, tuple_2):
@@ -42,7 +41,7 @@ def lights_on_after_cycles(in_lights_on, cycles, always_on_lights = set()):
     return len(lights_on)
 
 
-all_lights = parse_input('inputs/input18')
+DIMENSION, all_lights = parse_input('inputs/input18')
 cycles = 100
 
 part_1 = lights_on_after_cycles(all_lights, cycles)
