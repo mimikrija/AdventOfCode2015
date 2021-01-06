@@ -25,3 +25,16 @@ for reaction in all_reactions:
 
 part_1 = len(generated_molecules)
 print(f'We can create {part_1} distinct molecules!')
+
+# part 2, I don't really get it because it has to do with "unamigous grammar" which I never heard of
+# https://www.reddit.com/r/adventofcode/comments/3xflz8/day_19_solutions/cy4etju/ this sort of makes sense so I'll go with it
+
+elements = set(left for left, right in all_reactions) | {'Ar', 'Rn', 'Y'}
+count_all_elements = sum(molecule.count(element) for element in elements)
+
+count_ArRn = molecule.count('Ar') + molecule.count('Rn')
+count_Y = molecule.count('Y')
+
+part_2 = count_all_elements - count_ArRn - 2 * count_Y - 1
+print(f'Not entirely sure how, but part 2 solution is: {part_2}!') #\\
+# Not entirely sure how, but part 2 solution is: 207!
