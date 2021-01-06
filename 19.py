@@ -17,9 +17,11 @@ def react(reaction, in_molecule):
         out_molecules.add(new_molecule)
     return out_molecules
 
+
 all_reactions, molecule = parse_input('inputs/input19')
 generated_molecules = set()
 for reaction in all_reactions:
     generated_molecules |= react(reaction, molecule)
 
-print(len(generated_molecules))
+part_1 = len(generated_molecules)
+print(f'We can create {part_1} distinct molecules!')
