@@ -4,7 +4,7 @@ import re
 
 def distance_travelled(total_time, speed, travel_time, rest_time):
     time_cycle = travel_time + rest_time
-    cycle_count, remainder = total_time // time_cycle, total_time % time_cycle
+    cycle_count, remainder = divmod(total_time, time_cycle)
     if remainder >= travel_time:
         rest = travel_time
     else:
