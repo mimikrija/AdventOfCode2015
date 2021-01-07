@@ -49,7 +49,7 @@ def get_values_from_combo():
             gold, damage, armor = (one + two + three + four for one, two, three, four in zip(weapon, arm, ring_1, ring_2))
             shopping_combos.append((gold, damage, armor))
 
-    shopping_combos.sort(key = lambda x: x[0])
+    shopping_combos.sort(key = lambda x: x[0], reverse=True)
     return shopping_combos
 
 BOSS = {'hit_points': 103, 
@@ -67,7 +67,7 @@ def find_cheapest_win():
         me['armor'] = my_armor
         boss = dict(BOSS)
 
-        if take_turns(me, boss) == 'me':
+        if take_turns(me, boss) == 'boss':
             return gold
 
 part_1 = find_cheapest_win()
