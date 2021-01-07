@@ -1,39 +1,46 @@
 # Day 20: Infinite Elves and Infinite Houses
 
-
-# part_2
 my_input = 36000000
-max_elves = my_input // 11
-# every house gets 10 gifts from elf no.1
-house_gifts = [0 for _ in range(max_elves+1)]
-
-# after that, every n-th (or should I say elf-th) house gets n*11 gifts
-for elf in range(1, max_elves+1):
-    for house_num in range(elf, min(elf*50+1, max_elves+1), elf):
-        house_gifts[house_num] += elf*11
 
 
-for n, gifts in enumerate(house_gifts):
-    if gifts >= my_input:
-        print(f'House number {n} has {gifts} gifts!')
-        break
-# House number 884520 has 36191925 gifts!
+# every house gets `gifts_per_house` from each elf that visits it
+# elf no. 1 visits every house, elf no. 2 visits every other house,
+# elf no. 3 visits every third house, etc.
+# in case last visited house was a prime number, that house would get
+# gifts_per_house * (1 + N) gifts which means that the upper limit for our search of
+# houses is N = my_input//gifts_per_house - 1
+# accordingly, the number of elves is equal to the upper limit, because the elf number N
+# will visit every N-th house.
 
-# part_1
-my_input = 36000000
-max_elves = my_input // 10
+def distribute_gifts(gifts_per_house, target_gifts, houses_per_elf=0):
+    upper_limit = target_gifts // gifts_per_house # I am omitting -1 because we will use this variable in range()
+    if houses_per_elf == 0:
+        houses_per_elf = upper_limit # infinite visits.. otherwise use arg
 
-# every house gets 10 gifts from elf no.1
-house_gifts = [10 for _ in range(max_elves+1)]
+    # we initialize the array of house gifts to 0
+    house_gifts = [0 for house_no in range(upper_limit)]
 
-# after that, every n-th (or should I say elf-th) house gets n*10 gifts
-for elf in range(2, max_elves+1):
-    for house_num in range(elf, max_elves+1, elf):
-        house_gifts[house_num] += elf*10
+    # after that, for elves 1..upper_limit, every elf-th house gets elf*gifts_per_house gifts:
+    # in part_2 we stop after 50 (houses_per_elf) houses (or the upper_limit, whichever is smaller)
+    for elf in range(1, upper_limit):
+        for house_num in range(elf, min(elf*houses_per_elf + 1, upper_limit), elf):
+            house_gifts[house_num] += elf*gifts_per_house
 
-for n, gifts in enumerate(house_gifts):
-    if gifts >= my_input:
-        print(f'House number {n} has {gifts} gifts!')
-        break
+    return house_gifts
 
-# House number 831600 has 36902400 gifts!
+
+def find_first_house(gifts_per_house, target_gifts, houses_per_elf=0):
+    for house_number, gifts_in_house in enumerate(distribute_gifts(gifts_per_house, target_gifts, houses_per_elf)):
+        if gifts_in_house >= target_gifts:
+            return house_number
+
+
+part_1_gifts_per_elf = 10
+part_1 = find_first_house(part_1_gifts_per_elf, my_input)
+print(f'The first house that gets at least {my_input} gifts is house no. {part_1}! (Each elf gives {part_1_gifts_per_elf} gifts.)')
+
+
+part_2_gifts_per_elf = 11
+part_2_houses_per_elf = 50
+part_2 = find_first_house(part_2_gifts_per_elf, my_input, part_2_houses_per_elf)
+print(f'The first house that gets at least {my_input} gifts, if each elf visits only {part_2_houses_per_elf} houses, is house no. {part_2}! (Each elf gives {part_2_gifts_per_elf} gifts.)')
