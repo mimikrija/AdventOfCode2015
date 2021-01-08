@@ -21,7 +21,7 @@ def run_program(instructions, registers):
     next_instruction = 0
     while 0 <= next_instruction < len(instructions):
         command, register, number = instructions[next_instruction]
-        #print(next_instruction, command, register, number)
+
         if command == 'hlf':
             registers[register] = registers[register] // 2
             next_instruction += 1
@@ -51,7 +51,7 @@ instructions = parse_input('inputs/input23')
 
 # part 1
 registers_1 = {'a': 0,
-              'b': 0,
+               'b': 0,
               }
 
 part_1 = run_program(instructions, registers_1)
