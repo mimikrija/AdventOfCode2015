@@ -69,6 +69,8 @@ def gold_spent(is_part_2 = False):
 
 part_1 = gold_spent()
 print(f'The least amount of gold I can spend and still win is {part_1}!')
+# The least amount of gold I can spend and still win is 121!
 
 part_2 = gold_spent(True)
 print(f'The most amount of gold I can spend and still lose is {part_2}!')
+# The most amount of gold I can spend and still lose is 201!
