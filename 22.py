@@ -56,14 +56,15 @@ def apply_effects(me, boss, active_effects):
     return updated_active_effects
 
 
-def turn(in_me, in_boss, active_effects, mana_expense_so_far, selected_spell):
+def turn(in_me, in_boss, active_effects, mana_expense_so_far, selected_spell, least_mana, hard_mode = False):
     """ Simulate a game turn """
     # initialize stuff
     total_mana_spent = mana_expense_so_far
     me = dict(in_me)
-    me['hit_points'] -= 1 #hard mode
-    if me['hit_points'] <= 0:
-        return
+    if hard_mode:
+        me['hit_points'] -= 1
+        if me['hit_points'] <= 0:
+            return
     boss = dict(in_boss)
 
     # MY TURN
@@ -124,23 +125,28 @@ def turn(in_me, in_boss, active_effects, mana_expense_so_far, selected_spell):
     return me, boss, updated_active_effects, total_mana_spent
 
 
-# initialize
-initial_game = (dict(input_me), dict(input_boss), [], 0)
-states = Queue()
-states.put(initial_game)
-least_mana = float('inf')
-# breadth first
-while not states.empty():
-    current_state = states.get()
-    #print(current_state)
-    for spell in SPELLS:
-        outcome = turn(*current_state, spell)
-        if isinstance(outcome, tuple):
-            states.put(outcome)
-        elif outcome:
-            least_mana = min(least_mana, outcome)
+def breadth_first_search(hard_mode = False):
+    # initialize
+    initial_game = (dict(input_me), dict(input_boss), [], 0)
+    states = Queue()
+    states.put(initial_game)
+    least_mana = float('inf')
+    while not states.empty():
+        current_state = states.get()
+        #print(current_state)
+        for spell in SPELLS:
+            outcome = turn(*current_state, spell, least_mana, hard_mode)
+            if isinstance(outcome, tuple):
+                states.put(outcome)
+            elif outcome:
+                least_mana = min(least_mana, outcome)
+    return least_mana
 
-print(least_mana)
-# 953
 
-# hard mode 1289
+part_1 = breadth_first_search()
+print(f'The least amount of mana I can spend and still win is {part_1}!')
+# The least amount of mana I can spend and still win is 953!
+
+part_2 = breadth_first_search(True)
+print(f'The least amount of mana I can spend and still win (in HARD mode) is {part_2}!')
+# The least amount of mana I can spend and still win (in HARD mode) is 1289!
