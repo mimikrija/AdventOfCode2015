@@ -1,6 +1,7 @@
 # Day 22: Wizard Simulator 20XX
 
 from collections import namedtuple
+from queue import Queue
 
 # Magic Missile costs 53 mana. It instantly does 4 damage.
 # Drain costs 73 mana. It instantly does 2 damage and heals you for 2 hit points.
@@ -20,13 +21,22 @@ SPELLS = [Spell('Magic Missile', 53, 4, 0, 0, 0, 1),
           ]
 
 
-input_boss = ['Hit Points: 55',
-              'Damage: 8',
-              ]
+input_boss = {'hit_points': 55,
+              'damage': 8,
+              }
 
-input_me = ['Hit Points: 50',
-            'Mana: 500',
-            ]
+input_me = {'hit_points': 50,
+            'mana': 500,
+            }
+
+# example
+# input_boss = {'hit_points': 14,
+#               'damage': 8,
+#               }
+
+# input_me = {'hit_points': 10,
+#             'mana': 250,
+#             }
 
 
 def apply_effects(me, boss, active_effects):
@@ -46,7 +56,7 @@ def apply_effects(me, boss, active_effects):
     return updated_active_effects
 
 
-def turn(in_me, in_boss, active_effects, selected_spell, mana_expense_so_far):
+def turn(in_me, in_boss, active_effects, mana_expense_so_far, selected_spell):
     """ Simulate a game turn """
     # initialize stuff
     
@@ -76,7 +86,7 @@ def turn(in_me, in_boss, active_effects, selected_spell, mana_expense_so_far):
     # if it contains an effect, add it to the list of active effects so that they can be
     # applied in the bosses turn
     if selected_spell.effect_duration > 0:
-        updated_active_effects.append(selected_spell, selected_spell.effect_duration)
+        updated_active_effects.append((selected_spell, selected_spell.effect_duration))
     # else: spells with immediate effects
     else:
         boss['hit_points'] -= selected_spell.damage
@@ -86,7 +96,9 @@ def turn(in_me, in_boss, active_effects, selected_spell, mana_expense_so_far):
     me['mana'] -= selected_spell.cost
     total_mana_spent += selected_spell.cost
 
-    # we can prune here if we are already over the budget, but I'll add that later
+    # we can prune here if we are already over the budget
+    if total_mana_spent > least_mana:
+        return
 
     
     # BOSS TURN
@@ -106,3 +118,21 @@ def turn(in_me, in_boss, active_effects, selected_spell, mana_expense_so_far):
     
     # if nothing is returned by this point, it means that no one won so we keep playing:
     return me, boss, updated_active_effects, total_mana_spent
+
+
+# initialize
+initial_game = (dict(input_me), dict(input_boss), [], 0)
+states = Queue()
+states.put(initial_game)
+least_mana = float('inf')
+# breadth first
+while not states.empty():
+    current_state = states.get()
+    for spell in SPELLS:
+        outcome = turn(*current_state, spell)
+        if isinstance(outcome, tuple):
+            states.put(outcome)
+        elif outcome:
+            least_mana = min(least_mana, outcome)
+
+print(least_mana) # 854 too low # 1203 too high (when decrementing the timer by one)
