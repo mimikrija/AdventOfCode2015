@@ -59,7 +59,6 @@ def apply_effects(me, boss, active_effects):
 def turn(in_me, in_boss, active_effects, mana_expense_so_far, selected_spell):
     """ Simulate a game turn """
     # initialize stuff
-    
     total_mana_spent = mana_expense_so_far
     me = dict(in_me)
     boss = dict(in_boss)
@@ -68,13 +67,14 @@ def turn(in_me, in_boss, active_effects, mana_expense_so_far, selected_spell):
     # apply stuff from active_effects and update active_effects status
     updated_active_effects = apply_effects(me, boss, active_effects)
 
+
     # check if I win before casting any new spells:
     if boss['hit_points'] <= 0:
         return total_mana_spent
 
     # if a spell is already active, I cannot cast this spell:
     # this is not a loss, but an invalid state that needs no further analysis
-    if selected_spell in updated_active_effects:
+    if selected_spell in (updated_effect[0] for updated_effect in updated_active_effects):
         return
 
     # if I cannot afford to cast a spell, I lose
@@ -105,6 +105,7 @@ def turn(in_me, in_boss, active_effects, mana_expense_so_far, selected_spell):
     # apply stuff from active_effects and update active_effects status
     updated_active_effects = apply_effects(me, boss, updated_active_effects)
 
+
     # check if I win:
     if boss['hit_points'] <= 0:
         return total_mana_spent
@@ -128,6 +129,7 @@ least_mana = float('inf')
 # breadth first
 while not states.empty():
     current_state = states.get()
+    #print(current_state)
     for spell in SPELLS:
         outcome = turn(*current_state, spell)
         if isinstance(outcome, tuple):
@@ -135,4 +137,5 @@ while not states.empty():
         elif outcome:
             least_mana = min(least_mana, outcome)
 
-print(least_mana) # 854 too low # 1203 too high (when decrementing the timer by one)
+print(least_mana)
+# 953
