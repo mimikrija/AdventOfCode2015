@@ -8,7 +8,7 @@ def has_vowels(in_string):
 
 
 def has_double(in_string):
-    for first, second in zip(list(in_string), list(in_string)[1:]):
+    for first, second in zip(in_string, in_string[1:]):
         if first == second:
             return True
     return False
