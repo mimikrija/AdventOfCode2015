@@ -61,6 +61,9 @@ def turn(in_me, in_boss, active_effects, mana_expense_so_far, selected_spell):
     # initialize stuff
     total_mana_spent = mana_expense_so_far
     me = dict(in_me)
+    me['hit_points'] -= 1 #hard mode
+    if me['hit_points'] <= 0:
+        return
     boss = dict(in_boss)
 
     # MY TURN
@@ -139,3 +142,5 @@ while not states.empty():
 
 print(least_mana)
 # 953
+
+# hard mode 1289
