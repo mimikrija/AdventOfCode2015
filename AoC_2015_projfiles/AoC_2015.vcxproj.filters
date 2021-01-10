@@ -15,28 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\01st_Day.cpp">
+    <ClCompile Include="..\cpp_01st_Day.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AoC2015.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\02nd_Day.cpp">
+    <ClCompile Include="..\cpp_02nd_Day.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\03rd_Day.cpp">
+    <ClCompile Include="..\cpp_03rd_Day.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\05th_Day.cpp">
+    <ClCompile Include="..\cpp_05th_Day.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\06th_Day.cpp">
+    <ClCompile Include="..\cpp_06th_Day.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\07th_Day.cpp">
+    <ClCompile Include="..\cpp_07th_Day.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\08th_Day.cpp">
+    <ClCompile Include="..\cpp_08th_Day.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

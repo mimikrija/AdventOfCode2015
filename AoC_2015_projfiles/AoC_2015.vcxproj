@@ -112,13 +112,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\01st_Day.cpp" />
-    <ClCompile Include="..\02nd_Day.cpp" />
-    <ClCompile Include="..\03rd_Day.cpp" />
-    <ClCompile Include="..\05th_Day.cpp" />
-    <ClCompile Include="..\06th_Day.cpp" />
-    <ClCompile Include="..\07th_Day.cpp" />
-    <ClCompile Include="..\08th_Day.cpp" />
+    <ClCompile Include="..\cpp_01st_Day.cpp" />
+    <ClCompile Include="..\cpp_02nd_Day.cpp" />
+    <ClCompile Include="..\cpp_03rd_Day.cpp" />
+    <ClCompile Include="..\cpp_05th_Day.cpp" />
+    <ClCompile Include="..\cpp_06th_Day.cpp" />
+    <ClCompile Include="..\cpp_07th_Day.cpp" />
+    <ClCompile Include="..\cpp_08th_Day.cpp" />
     <ClCompile Include="AoC2015.cpp" />
   </ItemGroup>
   <ItemGroup>
