@@ -32,16 +32,13 @@ def is_nice(in_string, is_part_2 = False):
     if not is_part_2:
         if any(sub in in_string for sub in {'ab', 'cd', 'pq', 'xy'}):
             return False
-
         if not has_vowels(in_string):
             return False
-        
         return has_double(in_string)
 
-    else:
+    else: # part 2
         if not substring_appears_twice(in_string):
             return False
-
         return has_sandwich(in_string)
 
 
