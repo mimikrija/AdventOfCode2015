@@ -35,9 +35,29 @@ def turn_on_the_lights(instructions):
     return len(lights_on)
 
 
-instructions = parse_input('inputs/input06')
+def set_brightness(instructions):
+    lights_brigtness = [[0 for column in range(1000)] for row in range(1000)]
 
+    for instruction in instructions:
+        for row, column in create_range(instruction.from_x, instruction.to_x, instruction.from_y, instruction.to_y):
+            if instruction.command == 'turn on':
+                lights_brigtness[row][column] += 1
+            if instruction.command == 'toggle':
+                lights_brigtness[row][column] += 2
+            if instruction.command == 'turn off':
+                if lights_brigtness[row][column] > 0:
+                    lights_brigtness[row][column] -= 1
+
+    return sum(sum(row) for row in lights_brigtness)
+
+
+
+instructions = parse_input('inputs/input06')
 
 part_1 = turn_on_the_lights(instructions)
 print(f'After processing all instructions, there are {part_1} lights on!')
+# After processing all instructions, there are 543903 lights on!
 
+part_2 = set_brightness(instructions)
+print(f'After processing all instructions correctly, total brightness is {part_2}!')
+# After processing all instructions correctly, total brightness 14687245!
