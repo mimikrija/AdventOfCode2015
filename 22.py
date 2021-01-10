@@ -28,17 +28,70 @@ input_me = ['Hit Points: 50',
             'Mana: 500',
             ]
 
-def turn(me, boss, active_spells, selected_spell):
+
+def apply_effects(me, boss, active_effects):
+    # apply stuff from active_effects and update active_effects status
+    updated_active_effects = []
+    me['armor'] = 0
+    for spell, timer in active_effects:
+        boss['hit_points'] -= spell.damage
+        me['hit_points'] += spell.heal
+        me['mana'] += spell.new_mana
+        # armor is just active, not updated so I must apply it like this
+        if spell.armor > 0:
+            me['armor'] = spell.armor
+        # keeep spells for the next turn if the timer hasn't gone off
+        if timer > 1:
+            updated_active_effects.append((spell, timer - 1))
+    return updated_active_effects
+
+
+def turn(in_me, in_boss, active_effects, selected_spell, mana_expense_so_far):
     """ Simulate a game turn """
+    # initialize stuff
+    
+    total_mana_spent = mana_expense_so_far
+    me = dict(in_me)
+    boss = dict(in_boss)
+
+    # MY TURN
+    # apply stuff from active_effects and update active_effects status
+    updated_active_effects = apply_effects(me, boss, active_effects)
+
+    # check if I win before casting any new spells:
+    if boss['hit_points'] <= 0:
+        return total_mana_spent
 
     # if a spell is already active, I cannot cast this spell:
     # this is not a loss, but an invalid state that needs no further analysis
-    if selected_spell in active_spells:
+    if selected_spell in updated_active_effects:
         return
 
     # if I cannot afford to cast a spell, I lose
     if selected_spell.cost > me['mana']:
         return
+
+    # ok, finally cast a new spell (the effects of this actually apply for the bosses turn)
+
+    # if it contains an effect, add it to the list of active effects so that they can be
+    # applied in the bosses turn
+    if selected_spell.effect_duration > 0:
+        updated_active_effects.append(selected_spell, selected_spell.effect_duration)
+    # else: spells with immediate effects
+    else:
+        boss['hit_points'] -= selected_spell.damage
+        me['hit_points'] += selected_spell.heal
+
+    # do the expenses
+    me['mana'] -= selected_spell.cost
+    total_mana_spent += selected_spell.cost
+
+    # we can prune here if we are already over the budget, but I'll add that later
+
+    
+    # BOSS TURN
+    # apply stuff from active_effects and update active_effects status
+    updated_active_effects = apply_effects(me, boss, updated_active_effects)
 
     # check if I win:
     if boss['hit_points'] <= 0:
@@ -50,3 +103,6 @@ def turn(me, boss, active_spells, selected_spell):
     # check if boss wins:
     if me['hit_points'] <= 0:
         return
+    
+    # if nothing is returned by this point, it means that no one won so we keep playing:
+    return me, boss, updated_active_effects, total_mana_spent
