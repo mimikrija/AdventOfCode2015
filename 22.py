@@ -27,3 +27,26 @@ input_boss = ['Hit Points: 55',
 input_me = ['Hit Points: 50',
             'Mana: 500',
             ]
+
+def turn(me, boss, active_spells, selected_spell):
+    """ Simulate a game turn """
+
+    # if a spell is already active, I cannot cast this spell:
+    # this is not a loss, but an invalid state that needs no further analysis
+    if selected_spell in active_spells:
+        return
+
+    # if I cannot afford to cast a spell, I lose
+    if selected_spell.cost > me['mana']:
+        return
+
+    # check if I win:
+    if boss['hit_points'] <= 0:
+        return total_mana_spent
+
+    # boss turn
+    me['hit_points'] -= max(boss['damage'] - me['armor'], 1)
+
+    # check if boss wins:
+    if me['hit_points'] <= 0:
+        return
