@@ -29,11 +29,22 @@ def parse_input(filename):
     return instructions
 
 
+def memoize(function):
+    """ function to memoize whatever is going on in solve_wire """
+    memoized = {}
+    def wrap(instructions, wire):
+        if wire not in memoized:
+            memoized[wire] = function(instructions, wire)
+        return memoized[wire]
+    return wrap
+
+
 def apply_operation(operation, wire_1, wire_2 = ''):
     expression = ''.join([str(wire_1), OPERATORS[operation], str(wire_2)])
     return abs(eval(expression)) # see commit for more info about this hackiness
 
 
+@memoize
 def solve_wire(instructions, wire):
     """ returns value of `wire` given the input `instructions` dict
     if the value does not exists, it calls itself recursively until it is returned """
@@ -54,4 +65,5 @@ circuit = parse_input('inputs/input07')
 
 
 part_1 = solve_wire(circuit, 'a')
-print(f'The value of wire a is {part_1}!')
+print(f'The value of wire "a" is {part_1}!')
+# The value of wire "a" is 46065!
