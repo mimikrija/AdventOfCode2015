@@ -28,48 +28,51 @@ def parse_input(filename):
             instructions[wire] = Instruction(expression[1], [expression[pos] for pos in [0, 2]])
     return instructions
 
+def solution_wrapper(instructions, wire):
 
-def memoize(function):
-    """ function to memoize whatever is going on in solve_wire """
-    memoized = {}
-    def wrap(instructions, wire):
-        if wire not in memoized:
-            memoized[wire] = function(instructions, wire)
-        return memoized[wire]
-    return wrap
-
-
-def apply_operation(operation, wire_1, wire_2 = ''):
-    expression = ''.join([str(wire_1), OPERATORS[operation], str(wire_2)])
-    return abs(eval(expression)) # see commit for more info about this hackiness
+    def memoize(function):
+        """ function to memoize whatever is going on in solve_wire """
+        memoized = {}
+        def wrap(instructions, wire):
+            if wire not in memoized:
+                memoized[wire] = function(instructions, wire)
+            return memoized[wire]
+        return wrap
 
 
-@memoize
-def solve_wire(instructions, wire):
-    """ returns value of `wire` given the input `instructions` dict
-    if the value does not exists, it calls itself recursively until it is returned """
-    try:
-        return int(wire)
-    except:
-        pass
+    def apply_operation(operation, wire_1, wire_2 = ''):
+        expression = ''.join([str(wire_1), OPERATORS[operation], str(wire_2)])
+        return abs(eval(expression)) # see commit for more info about this hackiness
 
-    operator, arguments = instructions[wire]
-    if len(arguments) == 1:
-        return apply_operation(operator, solve_wire(instructions, arguments[0]))
-    if len(arguments) == 2:
-        return apply_operation(operator, solve_wire(instructions, arguments[0]), solve_wire(instructions, arguments[1]))
+
+    @memoize
+    def solve_wire(instructions, wire):
+        """ returns value of `wire` given the input `instructions` dict
+        if the value does not exists, it calls itself recursively until it is returned """
+        try:
+            return int(wire)
+        except:
+            pass
+
+        operator, arguments = instructions[wire]
+        if len(arguments) == 1:
+            return apply_operation(operator, solve_wire(instructions, arguments[0]))
+        if len(arguments) == 2:
+            return apply_operation(operator, solve_wire(instructions, arguments[0]), solve_wire(instructions, arguments[1]))
+
+    return solve_wire(instructions, wire)
 
 
 
 circuit = parse_input('inputs/input07')
 
 
-part_1 = solve_wire(circuit, 'a')
+part_1 = solution_wrapper(circuit, 'a')
 print(f'The value of wire "a" is {part_1}!')
 # The value of wire "a" is 46065!
 
 # part 2: set the value of wire 'b' to solution of part 1, run the whole thing again
 circuit['b'] = Instruction('EQ', [str(part_1)])
-part_2 = solve_wire(circuit, 'a')
+part_2 = solution_wrapper(circuit, 'a')
 
-print(f'The value of wire "a" is {part_2}!')
+print(f'The value of wire "a" (after rewiring "b" to point to part 1 solution) is {part_2}!')
