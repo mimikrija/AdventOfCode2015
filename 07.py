@@ -28,3 +28,7 @@ def parse_input(filename):
             instructions[wire] = Instruction(expression[1], [expression[pos] for pos in [0, 2]])
     return instructions
 
+
+def apply_operation(operation, wire_1, wire_2 = ''):
+    expression = ''.join([str(wire_1), OPERATORS[operation], str(wire_2)])
+    return abs(eval(expression)) # see commit for more info about this hackiness
