@@ -32,3 +32,26 @@ def parse_input(filename):
 def apply_operation(operation, wire_1, wire_2 = ''):
     expression = ''.join([str(wire_1), OPERATORS[operation], str(wire_2)])
     return abs(eval(expression)) # see commit for more info about this hackiness
+
+
+def solve_wire(instructions, wire):
+    """ returns value of `wire` given the input `instructions` dict
+    if the value does not exists, it calls itself recursively until it is returned """
+    try:
+        return int(wire)
+    except:
+        pass
+
+    operator, arguments = instructions[wire]
+    if len(arguments) == 1:
+        return apply_operation(operator, solve_wire(instructions, arguments[0]))
+    if len(arguments) == 2:
+        return apply_operation(operator, solve_wire(instructions, arguments[0]), solve_wire(instructions, arguments[1]))
+
+
+
+circuit = parse_input('inputs/input07')
+
+
+part_1 = solve_wire(circuit, 'a')
+print(f'The value of wire a is {part_1}!')
