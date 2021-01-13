@@ -67,3 +67,9 @@ circuit = parse_input('inputs/input07')
 part_1 = solve_wire(circuit, 'a')
 print(f'The value of wire "a" is {part_1}!')
 # The value of wire "a" is 46065!
+
+# part 2: set the value of wire 'b' to solution of part 1, run the whole thing again
+circuit['b'] = Instruction('EQ', [str(part_1)])
+part_2 = solve_wire(circuit, 'a')
+
+print(f'The value of wire "a" is {part_2}!')
