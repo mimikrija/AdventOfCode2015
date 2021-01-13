@@ -45,7 +45,7 @@ def solution_wrapper(instructions, wire):
         return abs(eval(expression)) # see commit for more info about this hackiness
 
 
-    @memoize
+    @memoize # this is the same as writing: solve_wire = memoize(solve_wire)
     def solve_wire(instructions, wire):
         """ returns value of `wire` given the input `instructions` dict
         if the value does not exists, it calls itself recursively until it is returned """
