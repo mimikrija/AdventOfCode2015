@@ -28,6 +28,7 @@ def parse_input(filename):
             instructions[wire] = Instruction(expression[1], [expression[pos] for pos in [0, 2]])
     return instructions
 
+
 def solution_wrapper(instructions, wire):
 
     def memoize(function):
