@@ -1,9 +1,11 @@
 # :christmas_tree: :snake: :sparkles: Maja's Advent of Code 2015 :sparkles: :snake: :christmas_tree:
 
-I first tried solving this in 2018 using C++ (some solutions present), and then after completing [Advent of code 2020](https://github.com/mimikrija/AdventOfCode2020), I decided to try and solve everything in Python.
-
+I first tried solving this in 2018 using C++ (some solutions present), and then in 2020-2021, I decided to try and solve everything in Python.
 As always, the goal of this exercise was to improve my coding logic and Python-specific skills.
-Here is a summary of what I did and what I learned along the way.
+
+I also have repositories here for all previous events (most of which are still under construction): [2015](https://github.com/mimikrija/AdventOfCode2015) :star:, [2016](https://github.com/mimikrija/AdventOfCode2016) :hammer:, [2017](https://github.com/mimikrija/AdventOfCode2017) :hammer:, [2018](https://github.com/mimikrija/AdventOfCode2018) :hammer:, [2019](https://github.com/mimikrija/AdventOfCode2019) :hammer:, [2020](https://github.com/mimikrija/AdventOfCode2020) :star: :white_check_mark:.
+
+## What I learned, what I still don't know
 
 Legend:
 
