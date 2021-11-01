@@ -3,7 +3,7 @@
 I first tried solving this in 2018 using C++ (some solutions present), and then in 2020-2021, I decided to try and solve everything in Python.
 As always, the goal of this exercise was to improve my coding logic and Python-specific skills.
 
-I also have repositories here for all previous events (most of which are still under construction): [2015](https://github.com/mimikrija/AdventOfCode2015) :star:, [2016](https://github.com/mimikrija/AdventOfCode2016) :hammer:, [2017](https://github.com/mimikrija/AdventOfCode2017) :hammer:, [2018](https://github.com/mimikrija/AdventOfCode2018) :hammer:, [2019](https://github.com/mimikrija/AdventOfCode2019) :hammer:, [2020](https://github.com/mimikrija/AdventOfCode2020) :star: :white_check_mark:.
+I also have repositories here for all previous events (most of which are still under construction): [2015](https://github.com/mimikrija/AdventOfCode2015) :star:, [2016](https://github.com/mimikrija/AdventOfCode2016) :star:, [2017](https://github.com/mimikrija/AdventOfCode2017) :star:, [2018](https://github.com/mimikrija/AdventOfCode2018) :hammer:, [2019](https://github.com/mimikrija/AdventOfCode2019) :hammer:, [2020](https://github.com/mimikrija/AdventOfCode2020) :star:
 
 ## What I learned, what I still don't know
 
