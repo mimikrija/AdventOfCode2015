@@ -2,10 +2,10 @@ go = lambda p: 1 if p == '(' else -1
 
 def find_instruction(instructions, first_time_at_floor):
     current_floor = 0
-    for pos, direction in enumerate(instructions):
+    for pos, direction in enumerate(instructions, 1):
         current_floor += go(direction)
-        if current_floor == -1:
-            return pos + 1
+        if current_floor == first_time_at_floor:
+            return pos
 
 with open('inputs/input01') as input_file:
     elevator_instructions = input_file.read()
