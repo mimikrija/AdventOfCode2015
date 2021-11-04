@@ -16,9 +16,9 @@ def lowest_positive(in_code, leading_zeroes):
 my_input = "ckczppom"
 
 part_1 = lowest_positive(my_input, 5)
-print ("First part solution is: ", part_1)
-# First part solution is:  117946
+print(f"First part solution is: {part_1}")
+# First part solution is: 117946
 
 part_2 = lowest_positive(my_input, 6)
-print ("Second part solution is: ", part_2)
-# Second part solution is:  3938038
+print(f"Second part solution is: {part_2}")
+# Second part solution is: 3938038
